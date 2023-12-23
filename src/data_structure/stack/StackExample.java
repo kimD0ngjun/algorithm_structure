@@ -19,7 +19,7 @@ public class StackExample {
         System.out.println(stack.getArray());
         System.out.println("사이즈 : " + stack.getSize());
         System.out.println("맨 처음 서치 : " + stack.search(1));
-        System.out.println("서치 : " + stack.search(100));
+        System.out.println("100 서치 : " + stack.search(100));
 
         stack.pop();
 

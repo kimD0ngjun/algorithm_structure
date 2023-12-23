@@ -14,7 +14,7 @@ public class StackCustom<T> {
         this.size = 0;
     }
 
-    // TODO: push, pop, peak, empty, search
+    // push, pop, peak, empty, search
     public void push(T element) {
         if (size == capacity) {
             resize();
@@ -62,7 +62,7 @@ public class StackCustom<T> {
         return -1;
     }
 
-    // TODO: 조회 메소드
+    // 조회 메소드
     public int getSize() {
         return size;
     }
@@ -73,7 +73,7 @@ public class StackCustom<T> {
 
     private T[] getArrayData() {
         return Arrays.copyOf(array, size);
-    } // 이 상태는 배열의 참조값을 출력
+    } // 이 상태로는 배열의 참조값을 출력
 
     public int getCapacity() {
         return capacity;
