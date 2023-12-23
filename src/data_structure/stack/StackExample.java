@@ -6,6 +6,7 @@ public class StackExample {
 
         System.out.println(stack.getArray());
         System.out.println("사이즈 : " + stack.getSize());
+        System.out.println("용량 : " + stack.getCapacity());
         System.out.println("비었는지 여부 : " + stack.empty());
         System.out.println("서치 : " + stack.search(100));
 

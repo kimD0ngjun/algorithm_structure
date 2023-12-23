@@ -74,4 +74,8 @@ public class StackCustom<T> {
     private T[] getArrayData() {
         return Arrays.copyOf(array, size);
     } // 이 상태는 배열의 참조값을 출력
+
+    public int getCapacity() {
+        return capacity;
+    }
 }
