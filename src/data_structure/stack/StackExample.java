@@ -1,7 +1,5 @@
 package data_structure.stack;
 
-import java.util.Arrays;
-
 public class StackExample {
     public static void main(String[] args) {
         StackCustom<Integer> stack = new StackCustom<>();

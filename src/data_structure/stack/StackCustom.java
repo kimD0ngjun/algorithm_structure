@@ -3,20 +3,32 @@ package data_structure.stack;
 import java.util.Arrays;
 
 public class StackCustom<T> {
-    private static final int DEFAULT_CAPACITY = 10; // 스택의 디폴트 용량(자체)
+    private static final int UNIT_CAPACITY = 10; // 스택의 디폴트 용량(자체)
     private T[] array; // 스택 배열
+    private int capacity = UNIT_CAPACITY; // 스택의 용량
     private int size; // 스택의 크기
 
     public StackCustom() {
-        this.array = (T[]) new Object[DEFAULT_CAPACITY];
+        this.array = (T[]) new Object[capacity];
         this.size = 0;
     }
 
     // TODO: push, pop, peak, search
     public void push(T element) {
+        if (size == capacity) {
+            resize();
+        }
+
         this.array[size] = element;
         this.size++;
-    } // 근데 이 상태로는 배열 사이즈를 초과하면 예외 발생
+    }
+
+    private void resize() {
+        this.capacity += UNIT_CAPACITY;
+        this.array = Arrays.copyOf(array, capacity);
+    }
+    // 출력 결과에서 실제로 값이 있는 부분만 표시되고 나머지는 null로 초기화되어 출력
+    // 제네릭 배열에서는 기본값으로 null이 사용되며, 이는 출력 시에는 표시되지 않음
 
     // TODO: 조회 메소드
     public int getSize() {
