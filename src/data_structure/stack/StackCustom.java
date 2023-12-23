@@ -1,6 +1,7 @@
 package data_structure.stack;
 
 import java.util.Arrays;
+import java.util.EmptyStackException;
 
 public class StackCustom<T> {
     private static final int UNIT_CAPACITY = 10; // 스택의 디폴트 용량(자체)
@@ -13,7 +14,7 @@ public class StackCustom<T> {
         this.size = 0;
     }
 
-    // TODO: push, pop, peak, search
+    // TODO: push, pop, peak, empty, search
     public void push(T element) {
         if (size == capacity) {
             resize();
@@ -29,6 +30,23 @@ public class StackCustom<T> {
     }
     // 출력 결과에서 실제로 값이 있는 부분만 표시되고 나머지는 null로 초기화되어 출력
     // 제네릭 배열에서는 기본값으로 null이 사용되며, 이는 출력 시에는 표시되지 않음
+
+    public void pop() {
+        if (size == 0) {
+            throw new EmptyStackException();
+        }
+
+        this.array[size - 1] = null;
+        this.size--;
+    }
+
+    public T peak() {
+        if (size == 0) {
+            throw new EmptyStackException();
+        }
+
+        return array[size - 1];
+    }
 
     // TODO: 조회 메소드
     public int getSize() {
