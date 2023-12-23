@@ -45,7 +45,21 @@ public class StackCustom<T> {
             throw new EmptyStackException();
         }
 
-        return array[size - 1];
+        return this.array[size - 1];
+    }
+
+    public boolean empty() {
+        return this.size == 0;
+    }
+
+    public int search(T element) {
+        for (int i = 0; i < this.size; i++) {
+            if (element.equals(this.array[i])) {
+                return this.size - i;
+            }
+        }
+
+        return -1;
     }
 
     // TODO: 조회 메소드
