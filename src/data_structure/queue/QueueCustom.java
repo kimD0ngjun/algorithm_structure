@@ -16,7 +16,7 @@ public class QueueCustom<T> {
 
     // add, offer, element, peak, remove, poll,
     public boolean add(T element) {
-        if (this.array.length == this.capacity) {
+        if (this.size == this.capacity) {
             throw new IllegalStateException();
         } else {
             this.array[size] = element;
@@ -27,7 +27,7 @@ public class QueueCustom<T> {
     }
 
     public boolean offer(T element) {
-        if (this.array.length == this.capacity) {
+        if (this.size == this.capacity) {
             return false;
         } else {
             this.array[size] = element;
