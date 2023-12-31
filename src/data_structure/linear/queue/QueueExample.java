@@ -1,4 +1,4 @@
-package data_structure.queue;
+package data_structure.linear.queue;
 
 public class QueueExample {
     public static void main(String[] args) {

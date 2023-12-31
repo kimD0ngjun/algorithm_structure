@@ -1,4 +1,4 @@
-package data_structure.queue;
+package data_structure.linear.queue;
 
 import java.util.Arrays;
 import java.util.NoSuchElementException;
