@@ -28,26 +28,54 @@ public class LinkedListCustom<T> {
         // 직전 노드의 pointer를 리턴해야 될 것 같기도
     }
 
-    public void insert(T newData, Node<T> prevPointer) {
+    public void insert(T newData, T previousData) {
         if (this.size < 2) {
             throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
         }
-//        if (// prevPointer가 해당 리스트에 존재하지 않을 경우) { 예외 발생 }
+//        if (// previousData가 해당 리스트에 존재하지 않을 경우) { 예외 발생 }
+        Node<T> previousNode = searchPreviousNode(previousData); // 이전 노드 검색
         Node<T> newNode = new Node<>(newData); // 새로운 노드 생성
-        newNode.updatePointer(prevPointer.pointer); // 새로운 노드의 포인터 설정
-        prevPointer.updatePointer(newNode); // 이전 노드의 포인터를 새로운 노드로
+
+        newNode.updatePointer(previousNode.pointerNode); // 새로운 노드의 포인터 설정
+        previousNode.updatePointer(newNode); // 이전 노드의 포인터를 새로운 노드로
 
         this.size++;
+    }
+
+    public void delete(Node<T> deleteNode) {
+        if (this.size == 1) {
+            this.headNode = null;
+            this.tailNode = null;
+        }
+
+        // 이전 노드의 pointer가 deleteNode.pointer;
+        // 그렇다면 이전 노드 정보를 deleteNode로부터 갖고와야 함(어케...?)
+    }
+
+    private Node<T> searchPreviousNode(T data) {
+        Node<T> previousNode = null;
+        Node<T> currentNode = this.headNode;
+
+        while (currentNode != null) {
+            if (currentNode.nodeData.equals(data)) {
+                return previousNode; // 특정 데이터와 일치하는 첫 번째 노드를 찾으면 바로 반환
+            }
+
+            previousNode = currentNode;
+            currentNode = currentNode.pointerNode;
+        }
+
+        return null;
     }
 
     //TODO : 데이터 단위 노드를 중첩 클래스로 선언
     private class Node<T> {
         private T nodeData;
-        private Node<T> pointer;
+        private Node<T> pointerNode;
 
         private Node(T nodeData) {
             this.nodeData = nodeData;
-            this.pointer = null;
+            this.pointerNode = null;
         }
 
         // 단순 setter, 혹은 pointer 필드를 default, public 등으로 설정하면 은닉성에 문제...
@@ -60,7 +88,7 @@ public class LinkedListCustom<T> {
 
         // setter와 getter 말고 내부에서 포인터 재설정 리팩토링
         private void updatePointer(Node<T> newNode) {
-            this.pointer = newNode.pointer;
+            this.pointerNode = newNode.pointerNode;
         }
     }
 }
