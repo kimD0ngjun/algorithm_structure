@@ -18,7 +18,9 @@ public class LinkedListCustom<T> {
         // 업데이트
         Node<T> newNode = new Node<>(data);
         this.tailNode = newNode;
-        previousNode.updatePointer(newNode);
+        if(previousNode != null) {
+            previousNode.updatePointer(newNode);
+        }
 
         if(this.size == 0) {
             this.headNode = this.tailNode;
@@ -32,7 +34,7 @@ public class LinkedListCustom<T> {
             throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
         }
 
-        Node<T> previousNode = searchNode(previousData, false);
+        Node<T> previousNode = searchNode(previousData, true);
         if (previousNode == null) {
             // 삭제할 데이터가 리스트에 없는 경우
             throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
@@ -68,17 +70,17 @@ public class LinkedListCustom<T> {
             throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
         }
 
-        previousNode.pointerNode = currentNode;
+        previousNode.pointerNode = currentNode.pointerNode;
         this.size--;
     }
 
-    private Node<T> searchNode(T data, boolean returnCurrentNode) {
+    private Node<T> searchNode(T data, boolean returnNode) {
         Node<T> previousNode = null;
         Node<T> currentNode = this.headNode;
 
         while (currentNode != null) {
             if (currentNode.nodeData.equals(data)) {
-                return returnCurrentNode ? currentNode : previousNode;
+                return returnNode ? currentNode : previousNode;
             }
 
             previousNode = currentNode;
