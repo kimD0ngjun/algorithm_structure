@@ -34,13 +34,13 @@ public class LinkedListCustom<T> {
         }
 //        if (// prevPointer가 해당 리스트에 존재하지 않을 경우) { 예외 발생 }
         Node<T> newNode = new Node<>(newData); // 새로운 노드 생성
-        newNode.updatePointer(prevPointer.getPointer()); // 새로운 노드의 포인터 설정
+        newNode.updatePointer(prevPointer.pointer); // 새로운 노드의 포인터 설정
         prevPointer.updatePointer(newNode); // 이전 노드의 포인터를 새로운 노드로
 
-        this.size++; // setter와 getter 말고 내부에서 포인터 재설정 리팩토링
+        this.size++;
     }
 
-    // 데이터 단위 노드를 중첩 클래스로 선언
+    //TODO : 데이터 단위 노드를 중첩 클래스로 선언
     private class Node<T> {
         private T nodeData;
         private Node<T> pointer;
@@ -59,12 +59,8 @@ public class LinkedListCustom<T> {
         // 자바의 특성상, 이 pointer는 최신 노드의 참조변수
 
         // setter와 getter 말고 내부에서 포인터 재설정 리팩토링
-        void updatePointer(Node<T> newNode) {
-            this.pointer = newNode.getPointer();
-        }
-
-        public Node<T> getPointer() {
-            return pointer;
+        private void updatePointer(Node<T> newNode) {
+            this.pointer = newNode.pointer;
         }
     }
 }
