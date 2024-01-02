@@ -11,14 +11,14 @@ public class LinkedListCustom<T> {
         this.size = 0;
     }
 
-    // add(데이터 노드 추가), insert(삽입), delete(삭제)  : 매개변수를 pointer 정보로?, 전체 조회
+    // add(데이터 노드 추가), insert(삽입), delete(삭제), 전체 조회
     public void add(T data) {
-        Node<T> prevNode = this.tailNode; // 이전의 꼬리 노드
+        Node<T> previousNode = this.tailNode; // 이전의 꼬리 노드
 
         // 업데이트
         Node<T> newNode = new Node<>(data);
         this.tailNode = newNode;
-        prevNode.updatePointer(newNode);
+        previousNode.updatePointer(newNode);
 
         if(this.size == 0) {
             this.headNode = this.tailNode;
@@ -32,8 +32,13 @@ public class LinkedListCustom<T> {
         if (this.size < 2) {
             throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
         }
-//        if (// previousData가 해당 리스트에 존재하지 않을 경우) { 예외 발생 }
-        Node<T> previousNode = searchPreviousNode(previousData); // 이전 노드 검색
+
+        Node<T> previousNode = searchNode(previousData, false);
+        if (previousNode == null) {
+            // 삭제할 데이터가 리스트에 없는 경우
+            throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
+        }
+        // 이전 노드 검색
         Node<T> newNode = new Node<>(newData); // 새로운 노드 생성
 
         newNode.updatePointer(previousNode.pointerNode); // 새로운 노드의 포인터 설정
@@ -42,23 +47,39 @@ public class LinkedListCustom<T> {
         this.size++;
     }
 
-    public void delete(Node<T> deleteNode) {
+    public void delete(T deleteData) {
+        if (this.size == 0) {
+            throw new IllegalArgumentException("The Node can't be deleted in list. Check that list's size is 0.");
+        }
+
         if (this.size == 1) {
             this.headNode = null;
             this.tailNode = null;
+            this.size = 0;
+            return;
         }
 
         // 이전 노드의 pointer가 deleteNode.pointer;
-        // 그렇다면 이전 노드 정보를 deleteNode로부터 갖고와야 함(어케...?)
+        // 그렇다면 이전 노드 정보를 deleteNode로부터 갖고와야 함
+        Node<T> previousNode = searchNode(deleteData, false);
+        Node<T> currentNode = searchNode(deleteData, true);
+
+        if (currentNode == null || previousNode == null) {
+            // 삭제할 데이터가 리스트에 없는 경우
+            throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
+        }
+
+        previousNode.pointerNode = currentNode;
+        this.size--;
     }
 
-    private Node<T> searchPreviousNode(T data) {
+    private Node<T> searchNode(T data, boolean returnCurrentNode) {
         Node<T> previousNode = null;
         Node<T> currentNode = this.headNode;
 
         while (currentNode != null) {
             if (currentNode.nodeData.equals(data)) {
-                return previousNode; // 특정 데이터와 일치하는 첫 번째 노드를 찾으면 바로 반환
+                return returnCurrentNode ? currentNode : previousNode;
             }
 
             previousNode = currentNode;
@@ -67,6 +88,7 @@ public class LinkedListCustom<T> {
 
         return null;
     }
+
 
     //TODO : 데이터 단위 노드를 중첩 클래스로 선언
     private class Node<T> {
@@ -86,9 +108,9 @@ public class LinkedListCustom<T> {
         // 최신 노드가 업데이트 됨 -> 업데이트 됨과 동시에 바로 직전의 노드는 pointer를 갖춤
         // 자바의 특성상, 이 pointer는 최신 노드의 참조변수
 
-        // setter와 getter 말고 내부에서 포인터 재설정 리팩토링
+        // 새로운 노드가 끼어들 경우
         private void updatePointer(Node<T> newNode) {
-            this.pointerNode = newNode.pointerNode;
+            this.pointerNode = newNode;
         }
     }
 }
