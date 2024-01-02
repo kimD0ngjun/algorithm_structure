@@ -6,6 +6,11 @@ public class LinkedListExample {
         linkedList.printAllNodes();
         linkedList.getSize();
 
+//        linkedList.insert(1, 0);
+//        linkedList.delete(0);
+
+        System.out.println();
+
         linkedList.add(0);
         linkedList.printAllNodes();
         linkedList.getSize();
@@ -64,5 +69,8 @@ public class LinkedListExample {
         linkedList.delete(7);
         linkedList.printAllNodes();
         linkedList.getSize();
+
+//        linkedList.insert(1000, 999);
+//        linkedList.delete(999);
     }
 }
