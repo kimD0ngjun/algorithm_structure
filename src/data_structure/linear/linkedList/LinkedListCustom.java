@@ -99,8 +99,8 @@ public class LinkedListCustom<T> {
     }
 
     //TODO : 데이터 단위 노드를 중첩 클래스로 선언
-    private class Node<T> {
-        private T nodeData;
+    private static class Node<T> {
+        private final T nodeData;
         private Node<T> pointerNode;
 
         private Node(T nodeData) {
