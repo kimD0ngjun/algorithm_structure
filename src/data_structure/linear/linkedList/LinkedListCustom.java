@@ -25,7 +25,6 @@ public class LinkedListCustom<T> {
         } // 최초 add일 경우의 headNode 설정
 
         this.size++;
-        // 직전 노드의 pointer를 리턴해야 될 것 같기도
     }
 
     public void insert(T newData, T previousData) {
@@ -87,6 +86,17 @@ public class LinkedListCustom<T> {
         }
 
         return null;
+    }
+
+    public void printAllNodes() {
+        Node<T> currentNode = this.headNode;
+
+        while (currentNode != null) {
+            System.out.print(currentNode.nodeData + " ");
+            currentNode = currentNode.pointerNode;
+        }
+
+        System.out.println();
     }
 
 
