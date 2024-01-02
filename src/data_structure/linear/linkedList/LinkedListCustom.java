@@ -21,12 +21,25 @@ public class LinkedListCustom<T> {
             this.headNode = this.tailNode;
         } // 최초 add일 경우의 headNode 설정
 
-        this.tailNode.updatePointer(pointer);
+        this.tailNode.setPointer(pointer);
         this.size++;
+        // 직전 노드의 pointer를 리턴해야 될 것 같기도
+    }
+
+    public void insert(T newData, Node<T> prevPointer) {
+        if (this.size < 2) {
+            throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
+        }
+//        if (// prevPointer가 해당 리스트에 존재하지 않을 경우) { 예외 발생 }
+        Node<T> newNode = Node.createNode(newData); // 새로운 노드 생성
+        prevPointer.setPointer(newNode); // 이전 노드의 포인터를 새로운 노드로
+        newNode.setPointer(prevPointer.getPointer()); // 새로운 노드의 포인터 설정
+
+        this.size++; // setter와 getter 말고 내부에서 포인터 재설정 리팩토링
     }
 }
 
-// 데이터 단위 노드를 내부 클래스로 선언
+// 데이터 단위 노드를 중첩 클래스로 선언
 class Node<T> {
     private T nodeData;
     private Node<T> pointer;
@@ -49,7 +62,12 @@ class Node<T> {
         return new Node<>(data);
     }
 
-    void updatePointer(Node<T> pointer) {
+    // setter와 getter 말고 내부에서 포인터 재설정 리팩토링
+    void setPointer(Node<T> pointer) {
         this.pointer = pointer;
+    }
+
+    public Node<T> getPointer() {
+        return pointer;
     }
 }
