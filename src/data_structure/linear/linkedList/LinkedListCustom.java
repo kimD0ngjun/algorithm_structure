@@ -3,6 +3,7 @@ package data_structure.linear.linkedList;
 public class LinkedListCustom<T> {
     private Node<T> headNode, tailNode;
     private int size = 0;
+    // 굳이 데이터 전체 묶음을 필드에 저장할 필요가 없을 것 같기도?
 
     public LinkedListCustom() {
         this.headNode = null;
@@ -10,8 +11,18 @@ public class LinkedListCustom<T> {
         this.size = 0;
     }
 
-    public void add (T data) {
+    // add(데이터 노드 추가), insert(삽입), delete(삭제)  : 매개변수를 pointer 정보로?, 전체 조회
+    public void add(T data) {
+        Node<T> pointer = this.tailNode; // 포인터 업데이트 용 참조변수
+        // 업데이트
         this.tailNode = Node.createNode(data);
+
+        if(this.size == 0) {
+            this.headNode = this.tailNode;
+        } // 최초 add일 경우의 headNode 설정
+
+        this.tailNode.updatePointer(pointer);
+        this.size++;
     }
 }
 
@@ -36,5 +47,9 @@ class Node<T> {
     // 팩토리 매서드화
     static <T> Node<T> createNode(T data) {
         return new Node<>(data);
+    }
+
+    void updatePointer(Node<T> pointer) {
+        this.pointer = pointer;
     }
 }
