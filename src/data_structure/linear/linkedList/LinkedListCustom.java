@@ -2,7 +2,7 @@ package data_structure.linear.linkedList;
 
 public class LinkedListCustom<T> {
     private Node<T> headNode, tailNode;
-    private int size = 0;
+    private int size;
     // 굳이 데이터 전체 묶음을 필드에 저장할 필요가 없을 것 같기도?
 
     public LinkedListCustom() {
@@ -74,13 +74,13 @@ public class LinkedListCustom<T> {
         this.size--;
     }
 
-    private Node<T> searchNode(T data, boolean returnNode) {
+    private Node<T> searchNode(T data, boolean findNode) {
         Node<T> previousNode = null;
         Node<T> currentNode = this.headNode;
 
         while (currentNode != null) {
             if (currentNode.nodeData.equals(data)) {
-                return returnNode ? currentNode : previousNode;
+                return findNode ? currentNode : previousNode;
             }
 
             previousNode = currentNode;
@@ -101,6 +101,9 @@ public class LinkedListCustom<T> {
         System.out.println();
     }
 
+    public void getSize() {
+        System.out.println("현재 list 크기 : " + this.size);
+    }
 
     //TODO : 데이터 단위 노드를 중첩 클래스로 선언
     private class Node<T> {
