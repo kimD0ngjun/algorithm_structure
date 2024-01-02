@@ -1,15 +1,17 @@
 package data_structure.linear.linkedList;
 
 public class LinkedListCustom<T> {
-    private Node<T> headNode;
-    private Node<T> updatedNode;
+    private Node<T> headNode, tailNode;
+    private int size = 0;
 
     public LinkedListCustom() {
         this.headNode = null;
+        this.tailNode = null;
+        this.size = 0;
     }
 
     public void add (T data) {
-        this.updatedNode = Node.createNode(data);
+        this.tailNode = Node.createNode(data);
     }
 }
 
@@ -31,6 +33,7 @@ class Node<T> {
     // 최신 노드가 업데이트 됨 -> 업데이트 됨과 동시에 바로 직전의 노드는 pointer를 갖춤
     // 자바의 특성상, 이 pointer는 최신 노드의 참조변수
 
+    // 팩토리 매서드화
     static <T> Node<T> createNode(T data) {
         return new Node<>(data);
     }
