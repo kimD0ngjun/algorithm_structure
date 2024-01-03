@@ -74,21 +74,37 @@ public class LinkedListCustom<T> {
 
     // 이전 노드만 알면 그 노드로부터 포인터노드를 통해 이후에 위치한 노드들을 전부 알 수 있다
     // 이걸 이용해서 검색 함수의 활용을 최대한 줄여보자
-    private Node<T> searchPreviousNode(T data, boolean findNode) {
+    private Node<T> searchPreviousNode(T currentData) {
+        if (this.headNode.nodeData.equals(currentData)) {
+            return null; // 머리 노드의 currentData를 입력한 경우
+        }
 
         Node<T> previousNode = null;
         Node<T> currentNode = this.headNode;
 
         while (currentNode != null) {
-            if (currentNode.nodeData.equals(data)) {
-                return findNode ? currentNode : previousNode;
+            if (currentNode.nodeData.equals(currentData)) {
+                return previousNode;
             }
-
             previousNode = currentNode;
             currentNode = currentNode.pointerNode;
         }
 
         return null;
+
+//        Node<T> previousNode = null;
+//        Node<T> currentNode = this.headNode;
+//
+//        while (currentNode != null) {
+//            if (currentNode.nodeData.equals(data)) {
+//                return findNode ? currentNode : previousNode;
+//            }
+//
+//            previousNode = currentNode;
+//            currentNode = currentNode.pointerNode;
+//        }
+//
+//        return null;
     }
 
     public void printAllNodes() {
