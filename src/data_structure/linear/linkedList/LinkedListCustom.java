@@ -31,25 +31,49 @@ public class LinkedListCustom<T> {
     // insert의 두 번째 매개변수를 pointerNode로 삼아야 된다
     // pointerNode가 가리키는 곳에 새로운 데이터 노드를 삽입하고 싶은 것
     // 만약 pointerNode가 null이라면 새로운 머리 노드를 만들고 싶다는 뜻
-    public void insert(T newData, T previousData) {
-        if (this.size < 2) {
-            throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
+    // 매개변수를 previousData가 아닌, 원래 삽입하고 싶은 위치의 데이터
+    public void insert(T insertedData, T targetData) {
+        if (this.size == 0){
+            throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is 0, use add method.");
         }
 
-        Node<T> previousNode = searchPreviousNode(previousData, true);
+        Node<T> previousNode = searchPreviousNode(targetData); // 삽입하려는 위치의 이전 노드
+        Node<T> insertedNode = new Node<>(insertedData); // 새로운 노드 생성
+
+        // 가장 앞(머리 노드 앞)에 삽입하려는 경우, previousData는 당연히 null일 것
         if (previousNode == null) {
-            throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
+            Node<T> secondPositionNode = this.headNode; // 기존의 머리 노드는 두 번째 위치로
+            this.headNode = insertedNode; // 새로운 머리 노드 승계
+            insertedNode.pointerNode = secondPositionNode; // 새로운 머리 노드의 포인터가 두 번째 노드를 가리킴
+            this.size++; // 사이즈 증가
+
+            return;
         }
-        Node<T> newNode = new Node<>(newData);
 
-        newNode.updatePointer(previousNode.pointerNode);
-        previousNode.updatePointer(newNode);
+        // 가장 앞이 아닌 경우
+        Node<T> targetNode = previousNode.pointerNode; // 삽입 위치에 원래 존재하던 노드, 뒤로 밀려날 운명
+        previousNode.pointerNode = insertedNode; // 이전 노드의 포인터가 새로운 노드를 가리킴
+        insertedNode.pointerNode = targetNode; // 새로운 노드의 포인터가 밀려난 노드를 가리킴
+        this.size++; // 사이즈 증가
 
-        this.size++;
+//        if (this.size < 2) {
+//            throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
+//        }
+//
+//        Node<T> previousNode = searchPreviousNode(previousData, true);
+//        if (previousNode == null) {
+//            throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
+//        }
+//        Node<T> newNode = new Node<>(newData);
+//
+//        newNode.updatePointer(previousNode.pointerNode);
+//        previousNode.updatePointer(newNode);
+//
+//        this.size++;
     }
 
     // 삭제 역시, 삭제하려는 데이터의 노드를 포인터노드로 삼는 이전 노드를 찾으면 된다
-    public void delete(T deleteData) {
+    public void delete(T deletedData) {
         if (this.size == 0) {
             throw new IllegalArgumentException("The Node can't be deleted in list. Check that list's size is 0.");
         }
@@ -61,7 +85,7 @@ public class LinkedListCustom<T> {
             return;
         }
 
-        Node<T> previousNode = searchPreviousNode(deleteData);
+        Node<T> previousNode = searchPreviousNode(deletedData);
 
         // 머리 노드를 삭제하려는 경우
         if (previousNode == null) {
@@ -71,9 +95,9 @@ public class LinkedListCustom<T> {
         }
 
         // 아닌 경우
-        Node<T> deleteNode = previousNode.pointerNode;
+        Node<T> deletedNode = previousNode.pointerNode;
 
-        previousNode.pointerNode = deleteNode.pointerNode;
+        previousNode.pointerNode = deletedNode.pointerNode;
         this.size--;
 
 //        Node<T> previousNode = searchPreviousNode(deleteData, false);
@@ -105,7 +129,7 @@ public class LinkedListCustom<T> {
             currentNode = currentNode.pointerNode;
         }
 
-        throw new IllegalArgumentException("The previous node with the specified data doesn't exist in the list.");
+        throw new IllegalArgumentException("The previous Node with the specified data doesn't exist in the list.");
 
 //        Node<T> previousNode = null;
 //        Node<T> currentNode = this.headNode;
