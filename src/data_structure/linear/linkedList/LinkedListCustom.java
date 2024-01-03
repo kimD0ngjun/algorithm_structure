@@ -67,6 +67,8 @@ public class LinkedListCustom<T> {
         this.size--;
     }
 
+    // 이전 노드만 알면 그 노드로부터 포인터노드를 통해 이후에 위치한 노드들을 전부 알 수 있다
+    // 이걸 이용해서 검색 함수의 활용을 최대한 줄여보자
     private Node<T> searchNode(T data, boolean findNode) {
         Node<T> previousNode = null;
         Node<T> currentNode = this.headNode;
