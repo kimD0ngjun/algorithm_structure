@@ -27,12 +27,16 @@ public class LinkedListCustom<T> {
         this.size++;
     }
 
+    // 새로운 머리 노드를 설정하는 경우도 있을 수 있다
+    // insert의 두 번째 매개변수를 pointerNode로 삼아야 된다
+    // pointerNode가 가리키는 곳에 새로운 데이터 노드를 삽입하고 싶은 것
+    // 만약 pointerNode가 null이라면 새로운 머리 노드를 만들고 싶다는 뜻
     public void insert(T newData, T previousData) {
         if (this.size < 2) {
             throw new IllegalArgumentException("The Node can't be inserted in list. If list's size is under 2, use add method.");
         }
 
-        Node<T> previousNode = searchNode(previousData, true);
+        Node<T> previousNode = searchPreviousNode(previousData, true);
         if (previousNode == null) {
             throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
         }
@@ -44,6 +48,7 @@ public class LinkedListCustom<T> {
         this.size++;
     }
 
+    // 삭제 역시, 삭제하려는 데이터의 노드를 포인터노드로 삼는 이전 노드를 찾으면 된다
     public void delete(T deleteData) {
         if (this.size == 0) {
             throw new IllegalArgumentException("The Node can't be deleted in list. Check that list's size is 0.");
@@ -56,8 +61,8 @@ public class LinkedListCustom<T> {
             return;
         }
 
-        Node<T> previousNode = searchNode(deleteData, false);
-        Node<T> currentNode = searchNode(deleteData, true);
+        Node<T> previousNode = searchPreviousNode(deleteData, false);
+        Node<T> currentNode = searchPreviousNode(deleteData, true);
 
         if (currentNode == null || previousNode == null) {
             throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
@@ -69,7 +74,8 @@ public class LinkedListCustom<T> {
 
     // 이전 노드만 알면 그 노드로부터 포인터노드를 통해 이후에 위치한 노드들을 전부 알 수 있다
     // 이걸 이용해서 검색 함수의 활용을 최대한 줄여보자
-    private Node<T> searchNode(T data, boolean findNode) {
+    private Node<T> searchPreviousNode(T data, boolean findNode) {
+
         Node<T> previousNode = null;
         Node<T> currentNode = this.headNode;
 
