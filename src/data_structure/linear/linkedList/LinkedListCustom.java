@@ -61,22 +61,37 @@ public class LinkedListCustom<T> {
             return;
         }
 
-        Node<T> previousNode = searchPreviousNode(deleteData, false);
-        Node<T> currentNode = searchPreviousNode(deleteData, true);
+        Node<T> previousNode = searchPreviousNode(deleteData);
 
-        if (currentNode == null || previousNode == null) {
-            throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
+        // 머리 노드를 삭제하려는 경우
+        if (previousNode == null) {
+            this.headNode = this.headNode.pointerNode;
+            this.size--;
+            return;
         }
 
-        previousNode.pointerNode = currentNode.pointerNode;
+        // 아닌 경우
+        Node<T> deleteNode = previousNode.pointerNode;
+
+        previousNode.pointerNode = deleteNode.pointerNode;
         this.size--;
+
+//        Node<T> previousNode = searchPreviousNode(deleteData, false);
+//        Node<T> currentNode = searchPreviousNode(deleteData, true);
+//
+//        if (currentNode == null || previousNode == null) {
+//            throw new IllegalArgumentException("The Node with the specified data doesn't exist in the list.");
+//        }
+//
+//        previousNode.pointerNode = currentNode.pointerNode;
+//        this.size--;
     }
 
     // 이전 노드만 알면 그 노드로부터 포인터노드를 통해 이후에 위치한 노드들을 전부 알 수 있다
     // 이걸 이용해서 검색 함수의 활용을 최대한 줄여보자
     private Node<T> searchPreviousNode(T currentData) {
         if (this.headNode.nodeData.equals(currentData)) {
-            return null; // 머리 노드의 currentData를 입력한 경우
+            return null; // 머리 노드의 nodeData를 currentData로 입력한 경우
         }
 
         Node<T> previousNode = null;
@@ -90,7 +105,7 @@ public class LinkedListCustom<T> {
             currentNode = currentNode.pointerNode;
         }
 
-        return null;
+        throw new IllegalArgumentException("The previous node with the specified data doesn't exist in the list.");
 
 //        Node<T> previousNode = null;
 //        Node<T> currentNode = this.headNode;
