@@ -129,7 +129,7 @@ public class LinkedListCustom<T> {
             currentNode = currentNode.pointerNode;
         }
 
-        throw new IllegalArgumentException("The previous Node with the specified data doesn't exist in the list.");
+        throw new IllegalArgumentException("The specified data doesn't exist in the list.");
 
 //        Node<T> previousNode = null;
 //        Node<T> currentNode = this.headNode;

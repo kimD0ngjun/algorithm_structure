@@ -72,5 +72,17 @@ public class LinkedListExample {
 
 //        linkedList.insert(1000, 999);
 //        linkedList.delete(999);
+
+        System.out.println();
+
+        linkedList.insert(66, 0);
+        linkedList.printAllNodes();
+        linkedList.getSize();
+
+        System.out.println();
+
+        linkedList.delete(66);
+        linkedList.printAllNodes();
+        linkedList.getSize();
     }
 }
