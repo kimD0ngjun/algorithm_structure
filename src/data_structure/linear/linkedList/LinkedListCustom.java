@@ -1,8 +1,8 @@
 package data_structure.linear.linkedList;
 
 public class LinkedListCustom<T> {
-    private Node<T> headNode, tailNode;
-    private int size;
+    protected Node<T> headNode, tailNode;
+    protected int size;
 
     public LinkedListCustom() {
         this.headNode = null;
@@ -75,7 +75,7 @@ public class LinkedListCustom<T> {
         this.size--;
     }
 
-    private Node<T> searchPreviousNode(T currentData) {
+    protected Node<T> searchPreviousNode(T currentData) {
         if (this.headNode.nodeData.equals(currentData)) {
             return null;
         }
@@ -110,7 +110,7 @@ public class LinkedListCustom<T> {
     }
 
     //TODO : 데이터 단위 노드를 중첩 클래스로 선언
-    private static class Node<T> {
+    protected static class Node<T> {
         private final T nodeData;
         private Node<T> pointerNode;
 
