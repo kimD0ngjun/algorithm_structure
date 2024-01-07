@@ -1,7 +1,5 @@
 package data_structure.linear.queue;
 
-import data_structure.linear.linkedList.LinkedListCustom;
-
 public class QueueByLinkedListExample {
     public static void main(String[] args) {
         QueueByLinkedListCustom<Integer> queue = new QueueByLinkedListCustom<>();
