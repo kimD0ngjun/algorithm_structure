@@ -1,8 +1,8 @@
 package data_structure.linear.stack;
 
-public class StackExample {
+public class StackByArrayExample {
     public static void main(String[] args) {
-        StackCustom<Integer> stack = new StackCustom<>();
+        StackByArrayCustom<Integer> stack = new StackByArrayCustom<>();
 
         System.out.println(stack.getArray());
         System.out.println("사이즈 : " + stack.getSize());

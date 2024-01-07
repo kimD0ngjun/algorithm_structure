@@ -3,13 +3,13 @@ package data_structure.linear.stack;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
-public class StackCustom<T> {
+public class StackByArrayCustom<T> {
     private static final int UNIT_CAPACITY = 10; // 스택의 디폴트 용량(자체)
     private T[] array; // 스택 배열
     private int capacity = UNIT_CAPACITY; // 스택의 용량
     private int size; // 스택의 크기
 
-    public StackCustom() {
+    public StackByArrayCustom() {
         this.array = (T[]) new Object[capacity];
         this.size = 0;
     }
