@@ -1,8 +1,8 @@
 package data_structure.linear.queue;
 
-public class QueueExample {
+public class QueueByArrayExample {
     public static void main(String[] args) {
-        QueueCustom<Integer> queue = new QueueCustom<>(10);
+        QueueByArrayCustom<Integer> queue = new QueueByArrayCustom<>(10);
 
         System.out.println(queue.getArray());
         System.out.println("사이즈 : " + queue.getSize());

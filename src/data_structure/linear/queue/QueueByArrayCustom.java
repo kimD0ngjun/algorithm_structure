@@ -3,12 +3,12 @@ package data_structure.linear.queue;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public class QueueCustom<T> {
+public class QueueByArrayCustom<T> {
     private T[] array; // 큐 배열
     private int size; // 큐의 크기
     private int capacity; // 큐의 용량
 
-    public QueueCustom(int capacity) {
+    public QueueByArrayCustom(int capacity) {
         this.array = (T[]) new Object[capacity];
         this.size = 0;
         this.capacity = capacity;
