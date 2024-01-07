@@ -111,15 +111,15 @@ public class LinkedListCustom<T> {
 
     //TODO : 데이터 단위 노드를 중첩 클래스로 선언
     protected static class Node<T> {
-        private final T nodeData;
-        private Node<T> pointerNode;
+        public final T nodeData;
+        protected Node<T> pointerNode;
 
-        private Node(T nodeData) {
+        protected Node(T nodeData) {
             this.nodeData = nodeData;
             this.pointerNode = null;
         }
 
-        private void updatePointer(Node<T> newNode) {
+        protected void updatePointer(Node<T> newNode) {
             this.pointerNode = newNode;
         }
     }
