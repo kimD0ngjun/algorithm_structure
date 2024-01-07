@@ -34,9 +34,9 @@ public class QueueByLinkedListCustom<T> extends LinkedListCustom<T> {
     }
 
     public T poll() {
-        if (size > 0) {
-            T data = headNode.nodeData;
-            delete(headNode.nodeData);
+        if (this.size > 0) {
+            T data = this.headNode.nodeData;
+            delete(this.headNode.nodeData);
             if (this.capacity - this.size >= DEFAULT_CAPACITY) {
                 this.capacity -= DEFAULT_CAPACITY;
             }
