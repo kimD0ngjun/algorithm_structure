@@ -18,7 +18,7 @@ public class QueueByLinkedListExample {
 
         System.out.println();
 
-        queue.poll();
+        queue.delete();
         queue.getSize();
         queue.printAllNodes();
 
@@ -42,15 +42,13 @@ public class QueueByLinkedListExample {
 
         System.out.println();
 
-        Integer pollData = queue.poll();
-        System.out.println("The output Data : " + pollData);
+        queue.delete();
         queue.getSize();
         queue.printAllNodes();
 
         System.out.println();
 
-        pollData = queue.poll();
-        System.out.println("The output Data : " + pollData);
+        queue.delete();
         queue.getSize();
         queue.printAllNodes();
 
@@ -98,8 +96,7 @@ public class QueueByLinkedListExample {
         anotherQueue.printAllNodes();
 
         System.out.println();
-        String outputData = anotherQueue.poll();
-        System.out.println("The output Data : " + outputData);
+        anotherQueue.delete();
         anotherQueue.getSize();
         anotherQueue.printAllNodes();
 
