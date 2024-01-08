@@ -41,6 +41,7 @@ public class QueueByLinkedListCustom<T> extends LinkedListCustom<T> {
     public void delete() {
         if (this.size > 0) {
             T data = this.headNode.nodeData;
+            System.out.println("The Output Data : " + data);
             super.delete(this.headNode.nodeData);
             if (this.capacity - this.size >= DEFAULT_CAPACITY) {
                 this.capacity -= DEFAULT_CAPACITY;
