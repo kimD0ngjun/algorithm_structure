@@ -30,19 +30,36 @@ public class QueueByLinkedListCustom<T> extends LinkedListCustom<T> {
     @Override
     public void getSize() {
         super.getSize();
-        System.out.println("현재 용량 : " + this.capacity);
+        System.out.println("capacity : " + this.capacity);
     }
 
-    public T poll() {
+    @Override
+    public void delete(T deletedData) {
+    }
+
+    // poll 기능에 맞춰서 오버로딩
+    public void delete() {
         if (this.size > 0) {
             T data = this.headNode.nodeData;
-            delete(this.headNode.nodeData);
+            super.delete(this.headNode.nodeData);
             if (this.capacity - this.size >= DEFAULT_CAPACITY) {
                 this.capacity -= DEFAULT_CAPACITY;
             }
-            return data;
         } else {
             throw new IllegalArgumentException("Queue is empty. Cannot poll.");
         }
     }
+
+//    public T poll() {
+//        if (this.size > 0) {
+//            T data = this.headNode.nodeData;
+//            delete(this.headNode.nodeData);
+//            if (this.capacity - this.size >= DEFAULT_CAPACITY) {
+//                this.capacity -= DEFAULT_CAPACITY;
+//            }
+//            return data;
+//        } else {
+//            throw new IllegalArgumentException("Queue is empty. Cannot poll.");
+//        }
+//    }
 }
