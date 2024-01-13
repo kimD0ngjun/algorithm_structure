@@ -18,8 +18,7 @@ public class GraphCustom<T> {
     public void addVertex(T newData) {
         if (!containVertex(newData)) {
             vertices.add(new Vertex<>(newData));
-        }
-        if (containVertex(newData)) {
+        } else {
             throw new IllegalArgumentException("The data was already added. Check the data.");
         }
     }
@@ -100,7 +99,9 @@ public class GraphCustom<T> {
 
     // 정점 집합 조회 메소드
     public void getVertices() {
-        System.out.println(vertices);
+        System.out.println("- 정점 집합 -");
+        vertices.forEach(e -> System.out.print(e.data + ", "));
+        System.out.println();
     }
 
     // 특정 정점 정보(정점 데이터, 정점이 보유한 간선) 조회 메소드
@@ -109,13 +110,14 @@ public class GraphCustom<T> {
             throw new IllegalArgumentException(
                     "The data isn't contained in the graph. Check the data");
         } else {
-            System.out.println("정점 데이터 : " + data);
+            System.out.println("- 데이터 " + data + "의 정보 -");
 
             Vertex<T> specificVertex = searchVertex(data);
             System.out.print("연결 간선 : ");
             for (Vertex<T> vertex: specificVertex.edges) {
-                System.out.print(vertex + ", ");
+                System.out.print(vertex.data + ", ");
             }
+            System.out.println("\n");
         }
     }
 
