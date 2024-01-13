@@ -13,6 +13,7 @@ public class GraphCustom<T> {
         this.vertices = new ArrayList<>();
     }
 
+    // TODO : 추가 메소드
     // 정점 추가
     public void addVertex(T newData) {
         if (!containVertex(newData)) {
@@ -26,14 +27,20 @@ public class GraphCustom<T> {
     // 간선 추가
     public void addEdge(T oneData, T anotherData) {
         if (!containVertex(oneData) || !containVertex(anotherData)) {
-            throw new IllegalArgumentException("The data isn't contained in graph.");
+            throw new IllegalArgumentException(
+                    "The data isn't contained in graph. Check the data");
         }
         if (containVertex(oneData) && containVertex(anotherData)) {
             Vertex<T> oneVertex = searchVertex(oneData);
             Vertex<T> anotherVertex = searchVertex(anotherData);
 
-            oneVertex.edges.add(anotherVertex);
-            anotherVertex.edges.add(oneVertex);
+            if (oneVertex.edges.contains(anotherVertex)
+                    && anotherVertex.edges.contains(oneVertex)) {
+                oneVertex.edges.add(anotherVertex);
+                anotherVertex.edges.add(oneVertex);
+            } else {
+                throw new IllegalArgumentException("Already existed edge.");
+            }
         }
     }
 
