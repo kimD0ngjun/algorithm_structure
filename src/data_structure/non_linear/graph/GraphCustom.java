@@ -28,7 +28,7 @@ public class GraphCustom<T> {
     public void addEdge(T oneData, T anotherData) {
         if (!containVertex(oneData) || !containVertex(anotherData)) {
             throw new IllegalArgumentException(
-                    "The data isn't contained in graph. Check the data");
+                    "The data isn't contained in the graph. Check the data");
         }
         if (containVertex(oneData) && containVertex(anotherData)) {
             Vertex<T> oneVertex = searchVertex(oneData);
@@ -44,6 +44,24 @@ public class GraphCustom<T> {
         }
     }
 
+    // TODO : 삭제 메소드
+    // 정점 삭제
+    public void deleteVertex(T data) {
+        if (!containVertex(data)) {
+            throw new IllegalArgumentException(
+                    "The data isn't contained in the graph. Check the data");
+        } else {
+            Vertex<T> deletedVertex = searchVertex(data);
+
+            for (Vertex<T> vertex : vertices) {
+                vertex.edges.remove(deletedVertex);
+            } // 삭제 정점이 포함된 간선들 전부 삭제
+
+            vertices.remove(deletedVertex); // 정점 삭제
+        }
+    }
+
+    // TODO : 유틸리티 메소드
     // 정점 데이터 중복 배제 메소드
     private boolean containVertex(T data) {
         return searchVertex(data) != null;
