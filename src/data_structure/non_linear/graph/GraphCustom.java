@@ -15,11 +15,40 @@ public class GraphCustom<T> {
 
     // 정점 추가
     public void addVertex(T newData) {
-        vertices.add(new Vertex<>(newData));
+        if (!containVertex(newData)) {
+            vertices.add(new Vertex<>(newData));
+        }
+        if (containVertex(newData)) {
+            throw new IllegalArgumentException("The data was already added. Check the data.");
+        }
     }
 
     // 간선 추가
     public void addEdge(T oneData, T anotherData) {
+        if (!containVertex(oneData) || !containVertex(anotherData)) {
+            throw new IllegalArgumentException("The data isn't contained in graph.");
+        }
+        if (containVertex(oneData) && containVertex(anotherData)) {
+            Vertex<T> oneVertex = searchVertex(oneData);
+            Vertex<T> anotherVertex = searchVertex(anotherData);
+
+            oneVertex.edges.add(anotherVertex);
+            anotherVertex.edges.add(oneVertex);
+        }
+    }
+
+    // 정점 데이터 중복 배제 메소드
+    private boolean containVertex(T data) {
+        return searchVertex(data) != null;
+    }
+
+    private Vertex<T> searchVertex(T data) {
+        for (Vertex<T> vertex : vertices) {
+            if (vertex.data.equals(data)) {
+                return vertex;
+            }
+        }
+        return null; // 데이터에 해당하는 정점이 없는 경우
     }
 
     //TODO : 데이터 단위 정점을 중첩 클래스로 선언
