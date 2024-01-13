@@ -98,6 +98,27 @@ public class GraphCustom<T> {
         return null; // 데이터에 해당하는 정점이 없는 경우
     }
 
+    // 정점 집합 조회 메소드
+    public void getVertices() {
+        System.out.println(vertices);
+    }
+
+    // 특정 정점 정보(정점 데이터, 정점이 보유한 간선) 조회 메소드
+    public void getSpecificVertex(T data) {
+        if (!containVertex(data)) {
+            throw new IllegalArgumentException(
+                    "The data isn't contained in the graph. Check the data");
+        } else {
+            System.out.println("정점 데이터 : " + data);
+
+            Vertex<T> specificVertex = searchVertex(data);
+            System.out.print("연결 간선 : ");
+            for (Vertex<T> vertex: specificVertex.edges) {
+                System.out.print(vertex + ", ");
+            }
+        }
+    }
+
     //TODO : 데이터 단위 정점을 중첩 클래스로 선언
     private static class Vertex<T> {
         private final T data;
