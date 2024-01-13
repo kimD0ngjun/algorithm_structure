@@ -51,58 +51,5 @@ public class QueueByLinkedListExample {
         queue.delete();
         queue.getSize();
         queue.printAllNodes();
-
-        System.out.println();
-        System.out.println("----------------------");
-        System.out.println();
-
-        QueueByLinkedListCustom<String> anotherQueue =
-                new QueueByLinkedListCustom<>(15);
-
-        anotherQueue.getSize();
-//        anotherQueue.poll();
-
-        System.out.println();
-
-        anotherQueue.add("A");
-        anotherQueue.getSize();
-        anotherQueue.printAllNodes();
-
-        System.out.println();
-        anotherQueue.add("B");
-        anotherQueue.add("C");
-        anotherQueue.add("E");
-        anotherQueue.add("F");
-        anotherQueue.add("G");
-        anotherQueue.getSize();
-        anotherQueue.printAllNodes();
-
-        System.out.println();
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.getSize();
-        anotherQueue.printAllNodes();
-
-        System.out.println();
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.add("H");
-        anotherQueue.add("I");
-        anotherQueue.getSize();
-        anotherQueue.printAllNodes();
-
-        System.out.println();
-        anotherQueue.delete();
-        anotherQueue.getSize();
-        anotherQueue.printAllNodes();
-
-        System.out.println();
-        anotherQueue.add("I");
-        anotherQueue.getSize();
-        anotherQueue.printAllNodes();
     }
 }
