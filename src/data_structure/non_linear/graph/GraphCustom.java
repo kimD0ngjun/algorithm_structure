@@ -13,6 +13,15 @@ public class GraphCustom<T> {
         this.vertices = new ArrayList<>();
     }
 
+    // 정점 추가
+    public void addVertex(T newData) {
+        vertices.add(new Vertex<>(newData));
+    }
+
+    // 간선 추가
+    public void addEdge(T oneData, T anotherData) {
+    }
+
     //TODO : 데이터 단위 정점을 중첩 클래스로 선언
     private static class Vertex<T> {
         private final T data;
