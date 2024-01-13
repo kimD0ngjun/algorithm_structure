@@ -34,8 +34,8 @@ public class GraphCustom<T> {
             Vertex<T> oneVertex = searchVertex(oneData);
             Vertex<T> anotherVertex = searchVertex(anotherData);
 
-            if (oneVertex.edges.contains(anotherVertex)
-                    && anotherVertex.edges.contains(oneVertex)) {
+            if (!oneVertex.edges.contains(anotherVertex)
+                    && !anotherVertex.edges.contains(oneVertex)) {
                 oneVertex.edges.add(anotherVertex);
                 anotherVertex.edges.add(oneVertex);
             } else {
@@ -61,12 +61,34 @@ public class GraphCustom<T> {
         }
     }
 
+    // 간선 삭제
+    public void deleteEdge(T oneData, T anotherData) {
+        if (!containVertex(oneData) || !containVertex(anotherData)) {
+            throw new IllegalArgumentException(
+                    "The data isn't contained in the graph. Check the data");
+        }
+        if (containVertex(oneData) && containVertex(anotherData)) {
+            Vertex<T> oneVertex = searchVertex(oneData);
+            Vertex<T> anotherVertex = searchVertex(anotherData);
+
+            if (oneVertex.edges.contains(anotherVertex)
+                    && anotherVertex.edges.contains(oneVertex)) {
+                oneVertex.edges.remove(anotherVertex);
+                anotherVertex.edges.remove(oneVertex);
+            } else {
+                throw new IllegalArgumentException("Already disconnected edge.");
+            }
+        }
+
+    }
+
     // TODO : 유틸리티 메소드
     // 정점 데이터 중복 배제 메소드
     private boolean containVertex(T data) {
         return searchVertex(data) != null;
     }
 
+    // 정점 검색 메소드
     private Vertex<T> searchVertex(T data) {
         for (Vertex<T> vertex : vertices) {
             if (vertex.data.equals(data)) {
