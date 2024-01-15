@@ -78,7 +78,21 @@ public class GraphCustom<T> {
                 throw new IllegalArgumentException("Already disconnected edge.");
             }
         }
+    }
 
+    // TODO : (정점) 데이터 교체 메소드
+    public void changeData(T newData, T oldData) {
+        if (!containVertex(oldData)) {
+            throw new IllegalArgumentException(
+                    "The data isn't contained in the graph. Check the data");
+        }
+
+        for (Vertex<T> vertex: vertices) {
+            if (oldData.equals(vertex.data)) {
+                vertex.setData(newData);
+                break;
+            }
+        }
     }
 
     // TODO : 유틸리티 메소드
@@ -115,7 +129,7 @@ public class GraphCustom<T> {
             Vertex<T> specificVertex = searchVertex(data);
             System.out.print("연결 간선 : ");
             for (Vertex<T> vertex: specificVertex.edges) {
-                System.out.print(vertex.data + ", ");
+                System.out.print(data.toString() + vertex.data.toString() + ", ");
             }
             System.out.println("\n");
         }
@@ -123,12 +137,16 @@ public class GraphCustom<T> {
 
     //TODO : 데이터 단위 정점을 중첩 클래스로 선언
     private static class Vertex<T> {
-        private final T data;
+        private T data;
         private List<Vertex<T>> edges; // 단위 정점에 연결된 간선들의 집합
 
         private Vertex(T data) {
             this.data = data;
             this.edges = new ArrayList<>();
+        }
+
+        private void setData(T data) {
+            this.data = data;
         }
     }
 }
