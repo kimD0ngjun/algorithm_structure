@@ -54,5 +54,18 @@ public class GraphExample {
         graph.getSpecificVertex("A");
         graph.getSpecificVertex("B");
         graph.getSpecificVertex("F");
+
+
+        System.out.println();
+        graph.changeData("가", "A");
+//        graph.getSpecificVertex("A");
+        graph.getSpecificVertex("가");
+        graph.getSpecificVertex("B");
+        graph.getSpecificVertex("F");
+
+        graph.deleteEdge("가", "F");
+        graph.getSpecificVertex("가");
+        graph.getSpecificVertex("B");
+        graph.getSpecificVertex("F");
     }
 }
