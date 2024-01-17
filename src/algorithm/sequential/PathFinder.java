@@ -34,14 +34,12 @@ public class PathFinder {
         visit[graph.vertices.indexOf(start)] = true; // 시작점 방문 기록
 
         while (!queue.isEmpty()) { // bfs용 큐가 비워질 때까지
-            // queue.add(neighbor)에 의해서 이웃 정점들이 채워지면서 반복 반복 반복...
             Vertex<?> current = queue.poll(); // 선입선출 수행
-            System.out.print(current.data + " -> "); // 꺼내는 순서대로 출력
 
             for (Vertex<?> neighbor : current.edges) { // 꺼내진 정점의 연결 간선들(여기서는 이어진 이웃 정점) 수색
                 int neighborIndex = graph.vertices.indexOf(neighbor); // 꺼내진 이웃 정점의 정점 리스트 인덱스 확인
 
-                if (!visit[neighborIndex]) { // 만약 그 이웃 정점을 아직 방문하지 않은 상태라면
+                if (!visit[neighborIndex]) {  // 만약 그 이웃 정점을 아직 방문하지 않은 상태라면
                     queue.add(neighbor); // bfs용 큐에 넣기
                     visit[neighborIndex] = true; // 방문 기록 남기기
                     previousPath[neighborIndex] = current; // 이웃 정점의 최단 경로를 현재 정점으로 설정
@@ -49,9 +47,33 @@ public class PathFinder {
                     // 시작 정점 A에서 B로 이동하는 경우: prev[B] = A
                     // B에서 C로 이동하는 경우: prev[C] = B
                     // C에서 D로 이동하는 경우: prev[D] = C... 즉, prev[prev[prev[D]]] = A
+
+                    if (neighbor == end) { // 도착 정점을 만난 경우
+                        printShortestPath(previousPath, start, end); // 경로 출력
+                        return; // 메서드 종료
+                    }
                 }
             }
         }
-        System.out.println(end.data); // 마지막 도착지 출력
+    }
+
+    private void printShortestPath(Vertex<?>[] previousPath, Vertex<?> start, Vertex<?> end) {
+        LinkedList<Vertex<?>> path = new LinkedList<>(); // 경로 출력을 위한 연결 리스트
+        Vertex<?> current = end;
+
+        while (current != null) {
+            path.addFirst(current); // 연결 리스트의 맨 앞에부터 차례대로 마지막 도착 정점부터 추가해서 밀어내기
+            current = previousPath[graph.vertices.indexOf(current)]; // 거슬러 올라가면서 역방향으로 경로 출력
+            // (위의 A부터 D까지 루트 예시 참조)
+        }
+
+        System.out.print(start.data + " 에서 " + end.data + " 까지의 최단 경로 : ");
+        for (int i = 0; i < path.size(); i++) {
+            System.out.print(path.get(i).data);
+
+            if (i < path.size() - 1) {
+                System.out.print(" -> ");
+            }
+        }
     }
 }
