@@ -23,11 +23,10 @@ public class PathFinder {
 
         if (start == null || end == null) {
             throw new IllegalArgumentException("There is no data in the vertex of graph");
-            return;
         }
 
         boolean[] visit = new boolean[graph.vertices.size()]; // 방문 여부 배열
-        Vertex<?>[] shortestPath = new Vertex<?>[graph.vertices.size()]; // 최단 경로 저장 배열
+        Vertex<?>[] previousPath = new Vertex<?>[graph.vertices.size()]; // 최단 경로 저장 배열
         // 최단 길이는 어차피 정점 배열 길이를 초과할 수 없음
 
         Queue<Vertex<?>> queue = new LinkedList<>(); // bfs용 큐 생성
@@ -37,6 +36,7 @@ public class PathFinder {
         while (!queue.isEmpty()) { // bfs용 큐가 비워질 때까지
             // queue.add(neighbor)에 의해서 이웃 정점들이 채워지면서 반복 반복 반복...
             Vertex<?> current = queue.poll(); // 선입선출 수행
+            System.out.print(current.data + " -> "); // 꺼내는 순서대로 출력
 
             for (Vertex<?> neighbor : current.edges) { // 꺼내진 정점의 연결 간선들(여기서는 이어진 이웃 정점) 수색
                 int neighborIndex = graph.vertices.indexOf(neighbor); // 꺼내진 이웃 정점의 정점 리스트 인덱스 확인
@@ -44,9 +44,14 @@ public class PathFinder {
                 if (!visit[neighborIndex]) { // 만약 그 이웃 정점을 아직 방문하지 않은 상태라면
                     queue.add(neighbor); // bfs용 큐에 넣기
                     visit[neighborIndex] = true; // 방문 기록 남기기
-                    shortestPath[neighborIndex] = current; // 이웃 정점의 최단 경로를 현재 정점으로 설정
+                    previousPath[neighborIndex] = current; // 이웃 정점의 최단 경로를 현재 정점으로 설정
+
+                    // 시작 정점 A에서 B로 이동하는 경우: prev[B] = A
+                    // B에서 C로 이동하는 경우: prev[C] = B
+                    // C에서 D로 이동하는 경우: prev[D] = C... 즉, prev[prev[prev[D]]] = A
                 }
             }
         }
+        System.out.println(end.data); // 마지막 도착지 출력
     }
 }
