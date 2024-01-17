@@ -1,71 +1,56 @@
 package data_structure.non_linear.graph;
 
+import algorithm.sequential.PathFinder;
+
 public class GraphExample {
     public static void main(String[] args) {
         GraphCustom<String> graph = new GraphCustom<>();
 
-//        graph.addEdge("A", "B");
         graph.addVertex("A");
-        graph.getVertices();
-        graph.getSpecificVertex("A");
-
-        System.out.println();
-
         graph.addVertex("B");
-        graph.getVertices();
-
-        System.out.println();
-
-//        graph.deleteVertex("B");
-//        graph.getVertices();
-
-        graph.addEdge("A", "B");
-        graph.getSpecificVertex("A");
-
-        System.out.println();
-        graph.getSpecificVertex("B");
-
-//        System.out.println();
-//        graph.deleteEdge("A", "B");
-//        graph.getSpecificVertex("B");
-//        graph.getSpecificVertex("A");
-
-//        graph.deleteEdge("A", "C");
         graph.addVertex("C");
         graph.addVertex("D");
         graph.addVertex("E");
         graph.addVertex("F");
+        graph.addVertex("G");
+        graph.addVertex("H");
+        graph.addVertex("I");
 
-        System.out.println();
+        graph.addEdge("A", "B");
+
+        graph.addEdge("B", "C");
+        graph.addEdge("B", "D");
+        graph.addEdge("B", "E");
+        graph.addEdge("B", "I");
+
+        graph.addEdge("C", "H");
+
+        graph.addEdge("D", "E");
+        graph.addEdge("D", "G");
+
+        graph.addEdge("E", "F");
+        graph.addEdge("E", "I");
+
+        graph.addEdge("G", "H");
+
+        graph.addEdge("H", "I");
+
         graph.getVertices();
-
         System.out.println();
-        graph.addEdge("A", "F");
-        graph.addEdge("A", "D");
-        graph.addEdge("D", "B");
+
         graph.getSpecificVertex("A");
         graph.getSpecificVertex("B");
+        graph.getSpecificVertex("C");
         graph.getSpecificVertex("D");
+        graph.getSpecificVertex("E");
         graph.getSpecificVertex("F");
+        graph.getSpecificVertex("G");
+        graph.getSpecificVertex("H");
+        graph.getSpecificVertex("I");
 
-        System.out.println();
-        graph.deleteVertex("D");
-        graph.getVertices();
-        graph.getSpecificVertex("A");
-        graph.getSpecificVertex("B");
-        graph.getSpecificVertex("F");
+        // 길찾기
 
-
-        System.out.println();
-        graph.changeData("가", "A");
-//        graph.getSpecificVertex("A");
-        graph.getSpecificVertex("가");
-        graph.getSpecificVertex("B");
-        graph.getSpecificVertex("F");
-
-        graph.deleteEdge("가", "F");
-        graph.getSpecificVertex("가");
-        graph.getSpecificVertex("B");
-        graph.getSpecificVertex("F");
+        PathFinder pathFinder = new PathFinder(graph);
+        pathFinder.findPathByBfs("A", "I");
     }
 }
