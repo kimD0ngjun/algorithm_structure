@@ -55,6 +55,9 @@ public class PathFinder {
                 }
             }
         }
+
+        // 반복문 순회가 전부 끝났는데 리턴문을 만나지 못했다면 그건 간선이 연결되지 않았다는 뜻
+        throw new IllegalArgumentException("No path exists between start vertex and end vertex");
     }
 
     private void printShortestPath(Vertex<?>[] previousPath, Vertex<?> start, Vertex<?> end) {
