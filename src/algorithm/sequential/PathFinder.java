@@ -75,5 +75,6 @@ public class PathFinder {
                 System.out.print(" -> ");
             }
         }
+        System.out.println("\n");
     }
 }
