@@ -97,12 +97,12 @@ public class GraphCustom<T> {
 
     // TODO : 유틸리티 메소드
     // 정점 데이터 중복 배제 메소드
-    private boolean containVertex(T data) {
+    public boolean containVertex(T data) {
         return searchVertex(data) != null;
     }
 
     // 정점 검색 메소드
-    private Vertex<T> searchVertex(T data) {
+    public Vertex<T> searchVertex(Object data) {
         for (Vertex<T> vertex : vertices) {
             if (vertex.data.equals(data)) {
                 return vertex;
