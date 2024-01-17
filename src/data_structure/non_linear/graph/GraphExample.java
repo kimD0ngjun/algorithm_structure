@@ -52,5 +52,8 @@ public class GraphExample {
 
         PathFinder pathFinder = new PathFinder(graph);
         pathFinder.findPathByBfs("A", "I");
+        pathFinder.findPathByBfs("C", "F");
+        pathFinder.findPathByBfs("F", "H");
+        pathFinder.findPathByBfs("H", "A");
     }
 }
