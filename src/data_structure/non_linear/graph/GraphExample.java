@@ -55,5 +55,8 @@ public class GraphExample {
         pathFinder.findPathByBfs("C", "F");
         pathFinder.findPathByBfs("F", "H");
         pathFinder.findPathByBfs("H", "A");
+
+//        graph.addVertex("NO");
+//        pathFinder.findPathByBfs("A", "NO");
     }
 }
