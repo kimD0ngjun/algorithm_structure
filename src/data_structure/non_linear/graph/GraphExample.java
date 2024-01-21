@@ -58,5 +58,13 @@ public class GraphExample {
 
 //        graph.addVertex("NO");
 //        pathFinder.findPathByBfs("A", "NO");
+        System.out.println();
+        pathFinder.findPathByDfs("A", "I");
+        pathFinder.findPathByDfs("C", "F");
+        pathFinder.findPathByDfs("F", "H");
+        pathFinder.findPathByDfs("H", "A");
+
+//        graph.addVertex("NO");
+//        pathFinder.findPathByDfs("A", "NO");
     }
 }
