@@ -115,7 +115,8 @@ public class PathFinder {
             // (위의 A부터 D까지 루트 예시 참조)
         }
 
-        System.out.print(start.data + " 에서 " + end.data + " 까지의 최단 경로 : ");
+        System.out.println("bfs일 경우는 최단 경로, dfs일 경우는 그냥 경로");
+        System.out.print(start.data + " 에서 " + end.data + " 까지의 경로 : ");
         for (int i = 0; i < path.size(); i++) {
             System.out.print(path.get(i).data);
 
