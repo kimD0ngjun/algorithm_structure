@@ -61,3 +61,17 @@ class BinaryMaxHeap:
             
             # 내려간 애는 다시 제자리 찾아가기(삽입 과정)
             self._percolate_down(biggest)
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        maxheap = BinaryMaxHeap()
+        
+        for element in nums:
+            maxheap.insert(element)
+            
+        # maxheap.extract() : 최대힙에서 최대값 추출
+        
+        # list comprehension
+        # [표현식 for 요소 in iterable(반복 가능한 객체) if 조건식]
+        # 마지막 인덱스(k-1)가 k번째로 뽑아낸 값이 됨
+        return [maxheap.extract() for _ in range(k)][k - 1]
