@@ -15,6 +15,19 @@ class LinkedList:
         self.head = head
         self.tail = tail # 연결 리스트의 취지에 맞게
 
+    # 출력 메소드
+    def print_list(self):
+        print_array = []
+
+        node = self.head
+
+        while(node):
+            print_array.append(node.val)
+            node = node.next
+
+        print(print_array)
+
+    # 추가 메소드
     def append(self, val):
         new_node = ListNode(val)
 
@@ -30,3 +43,11 @@ class LinkedList:
         self.tail.next = new_node
         # 새로운 꼬리 노드를 지정함
         self.tail = new_node
+
+test = LinkedList()
+test.append(0)
+test.print_list()
+test.append(1)
+test.print_list()
+test.append(2)
+test.print_list()
