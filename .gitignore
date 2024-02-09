@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/
+python_grammer/
 algorithm_structure.iml
 
 ### Eclipse ###
