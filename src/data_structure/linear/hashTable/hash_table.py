@@ -17,27 +17,27 @@ class HashCustom:
         self.bucket = [None] * HashCustom.BUCKET_SIZE
 
     # 삽입 및 업데이트
-    def set_hash(self, key: str, value: str) -> None:
+    def custom_set(self, key: str, value: str) -> None:
     # 각 문자열의 문자들의 아스키코드 값을 더한 값을 해시 함수에 인자로 넣는다.
         ascii_sum = sum(ord(char) for char in key)
-        index = ascii_sum % HashCustom.BUCKET_SIZE
+        idx = ascii_sum % HashCustom.BUCKET_SIZE
 
         # 인덱스에 저장이 안 됐을 경우
-        if self.bucket[index: int] is None:
-            self.bucket[index: int] = value
+        if self.bucket[idx: int] is None:
+            self.bucket[idx: int] = value
             return
         else:
-            if self.bucket[index].key == key:
-                self.bucket[index].value = value
+            if self.bucket[idx].key == key:
+                self.bucket[idx].value = value
                 return
             else:
-                node = self.bucket[index]
+                node = self.bucket[idx]
                 while node is not None:
                     if node.key == key:
                         node.value = value
                         return
                     else:
-                        node.next_node = HashNode(key, index, value)
+                        node.next_node = HashNode(key, idx, value)
 
                     node = node.next_node
 
