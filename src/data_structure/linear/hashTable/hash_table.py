@@ -13,18 +13,18 @@ class HashCustom:
     BUCKET_SIZE = 97
 
     # 생성자
-    def __init__(self, bucket):
+    def __init__(self):
         self.bucket = [None] * HashCustom.BUCKET_SIZE
 
     # 삽입 및 업데이트
-    def custom_set(self, key: str, value: str) -> None:
+    def set_custom(self, key: str, value: str) -> None:
         # 각 문자열의 문자들의 아스키코드 값을 더한 값을 해시 함수에 인자로 넣는다.
         ascii_sum = sum(ord(char) for char in key)
         idx = ascii_sum % HashCustom.BUCKET_SIZE
 
         # 인덱스에 저장이 안 됐을 경우
-        if self.bucket[idx: int] is None:
-            self.bucket[idx: int] = HashNode(key, idx, value)
+        if self.bucket[idx] is None:
+            self.bucket[idx] = HashNode(key, idx, value)
             return
         # 인덱스에 이미 저장이 되어있는 경우
         else:
@@ -75,3 +75,7 @@ class HashCustom:
 
             prev = node
             node = node.next_node
+
+custom_hash = HashCustom()
+custom_hash.set_custom("one", "1")
+print(custom_hash.get_custom("one"))
