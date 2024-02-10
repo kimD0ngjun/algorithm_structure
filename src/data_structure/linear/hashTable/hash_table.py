@@ -59,3 +59,19 @@ class HashCustom:
             node = node.next_node
 
     # 삭제
+    def delete_custom(self, key: str) -> None:
+        ascii_sum = sum(ord(char) for char in key)
+        idx = ascii_sum % HashCustom.BUCKET_SIZE
+
+        node = self.bucket[idx]
+        prev = None
+
+        while node is not None:
+            if node.key == key and prev is None:
+                self.bucket[idx] = node.next_node
+                return
+            elif node.key == key and prev is not None:
+                prev.next_node = node.next_node
+
+            prev = node
+            node = node.next_node
