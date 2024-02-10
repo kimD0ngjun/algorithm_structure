@@ -29,9 +29,9 @@ class HashCustom:
         # 인덱스에 이미 저장이 되어있는 경우
         else:
             # 개별 체이닝 탐색 시작
-            while node is not None:
-                node = self.bucket[idx]
+            node = self.bucket[idx]
 
+            while node is not None:
                 # 만약 리스트의 노드 중 같은 key를 찾으면 업데이트
                 if node.key == key:
                     node.value = value
@@ -48,5 +48,14 @@ class HashCustom:
     def get_custom(self, key: str) -> int:
         ascii_sum = sum(ord(char) for char in key)
         idx = ascii_sum % HashCustom.BUCKET_SIZE
+
+        node = self.bucket[idx]
+
+        while node is not None:
+            # 만약 리스트의 노드 중 같은 key를 찾으면 반환
+            if node.key == key:
+                return node.value
+
+            node = node.next_node
 
     # 삭제
