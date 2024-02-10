@@ -76,6 +76,21 @@ class HashCustom:
             prev = node
             node = node.next_node
 
+# test
 custom_hash = HashCustom()
+
 custom_hash.set_custom("one", "1")
 print(custom_hash.get_custom("one"))
+
+custom_hash.set_custom("eno", "eno")
+print(custom_hash.get_custom("eno"))
+
+custom_hash.set_custom("neo", "new_world")
+print(custom_hash.get_custom("neo"))
+
+custom_hash.delete_custom("eno")
+print(custom_hash.get_custom("neo"))
+print(custom_hash.get_custom("one"))
+
+custom_hash.set_custom("two", "two")
+print(custom_hash.get_custom("two"))
