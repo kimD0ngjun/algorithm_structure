@@ -63,6 +63,7 @@ class HashCustom:
                 return
             elif node.key == key and prev is not None:
                 prev.next_node = node.next_node
+                return
 
             prev = node
             node = node.next_node
