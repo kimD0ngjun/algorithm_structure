@@ -1,8 +1,7 @@
 # unit node
 class HashNode:
-    def __init__(self, key: str, idx: int, value: str, next_node=None):
+    def __init__(self, key: str, value, next_node=None):
         self.key = key
-        self.idx = idx
         self.value = value
         self.next_node = next_node
 
@@ -15,12 +14,12 @@ class HashCustom:
         self.bucket = [None] * HashCustom.BUCKET_SIZE
 
     # insert & update
-    def set_custom(self, key: str, value: str) -> None:
+    def set_custom(self, key: str, value) -> None:
         ascii_sum = sum(ord(char) for char in key)
         idx = ascii_sum % HashCustom.BUCKET_SIZE
 
         if self.bucket[idx] is None:
-            self.bucket[idx] = HashNode(key, idx, value)
+            self.bucket[idx] = HashNode(key, value)
             return
         else:
             node = self.bucket[idx]
@@ -31,13 +30,13 @@ class HashCustom:
                     return
 
                 if node.next_node is None:
-                    node.next_node = HashNode(key, idx, value)
+                    node.next_node = HashNode(key, value)
                     return
 
                 node = node.next_node
 
     # read
-    def get_custom(self, key: str) -> int:
+    def get_custom(self, key: str):
         ascii_sum = sum(ord(char) for char in key)
         idx = ascii_sum % HashCustom.BUCKET_SIZE
 
@@ -90,3 +89,8 @@ print(custom_hash.get_custom("two"))
 
 custom_hash.set_custom("two", "update two")
 print(custom_hash.get_custom("two"))
+
+custom_hash.set_custom("one", [1, 2, 3, 4, 5])
+print(custom_hash.get_custom("one"))
+print(custom_hash.get_custom("neo"))
+print(custom_hash.get_custom("eno"))
