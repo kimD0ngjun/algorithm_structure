@@ -29,6 +29,8 @@ public class PathFinder {
         boolean[] visit = new boolean[graph.vertices.size()]; // 방문 여부 배열
         Vertex<?>[] previousPath = new Vertex<?>[graph.vertices.size()]; // 최단 경로 저장 배열
         // 최단 길이는 어차피 정점 배열 길이를 초과할 수 없음
+        // 너의 이전 정점을 previousPath 배열을 바탕으로 너의 정점들 인덱스에 저장한다.
+        // A -> B일 경우, vertices(정점 모음 리스트)의 B의 인덱스값이 5면 previousPath의 인덱스 5에 A를 저장
 
         Queue<Vertex<?>> queue = new LinkedList<>(); // bfs용 큐 생성
         queue.add(start); // 시작점 추가
@@ -76,6 +78,8 @@ public class PathFinder {
         boolean[] visit = new boolean[graph.vertices.size()]; // 방문 여부 배열
         Vertex<?>[] previousPath = new Vertex<?>[graph.vertices.size()]; // 최단 경로 저장 배열
         // 최단 길이는 어차피 정점 배열 길이를 초과할 수 없음
+        // 너의 이전 정점을 previousPath 배열을 바탕으로 너의 정점들 인덱스에 저장한다.
+        // A -> B일 경우, vertices(정점 모음 리스트)의 B의 인덱스값이 5면 previousPath의 인덱스 5에 A를 저장
 
         Stack<Vertex<?>> stack = new Stack<>(); // dfs용 스택 생성
         stack.push(start); // 시작점 추가
