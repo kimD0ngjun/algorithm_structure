@@ -28,6 +28,7 @@ def prim(graph, start_vertex):
 
     while heap:
         # 가중치를 기준으로 한 최소 튜플(heapq.heappop(heap))의 정점([1])과 가중치([0]) 추출
+        # 힙에서 팝하는 것이 현재 간선들 중에서 최소 가중치 간선을 뽑는 것
         cur_weight, cur_vertex = heapq.heappop(heap)
 
         # 현 시점에서의 최소 튜플이 이미 연결되어 있는 간선이라면 볼 필요 없음
@@ -35,7 +36,18 @@ def prim(graph, start_vertex):
             connected.add(cur_vertex)
             min_sum_weight += cur_weight
 
+            print("연결된 정점 " + str(cur_vertex) + ", 선택 간선 가중치 : " + str(cur_weight))
 
+            # 최소치 정점과 연결된 간선 정보들 탐색
+            for adj_vertex, weight in graph[cur_vertex]:
+                # 신장 트리에 새로 덧이어진 간선(인접 노드)들을 힙에 넣는다
+                if adj_vertex not in connected:
+                    # 이로써 이전 분기에서 최소치에 해당하지 못한 가중치, 간선 튜플과
+                    # 현재 분기에서 덧이어진 가중치, 간선 튜플까지 전부 힙에 들어가서
+                    # 최소 가중치 간선 추출 준비 완료
+                    heapq.heappush(heap, (weight, adj_vertex))
+
+    return min_sum_weight
 
 
 graph = {
