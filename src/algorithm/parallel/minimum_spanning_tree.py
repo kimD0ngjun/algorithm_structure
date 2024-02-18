@@ -1,6 +1,4 @@
 import heapq
-import sys
-from typing import List, Tuple, Dict
 
 # 신장 트리 : 모든 정점 연결 + 사이클 없는 그래프
 # 최소 신장 트리 : 각 간선이 갖는 가중치의 합이 최소인 신장 트리
@@ -30,6 +28,10 @@ def prim(graph, start_vertex):
         # 가중치를 기준으로 한 최소 튜플(heapq.heappop(heap))의 정점([1])과 가중치([0]) 추출
         # 힙에서 팝하는 것이 현재 간선들 중에서 최소 가중치 간선을 뽑는 것
         cur_weight, cur_vertex = heapq.heappop(heap)
+
+        # 반대로 생각해보면 양방향 그래프니까 cur_vertex(인접객체)를 중심 정점으로 삼고
+        # cur_weight만큼의 가중치를 지닌 간선 정보에 담긴 인접 객체를 튜플에서 찾아서 그 값에 해당하는 mst 딕셔너리에
+        # 키를 찾아서 (cur_vertex, cur_weight)를 넣는다
 
         # 현 시점에서의 최소 튜플이 이미 연결되어 있는 간선이라면 볼 필요 없음
         if cur_vertex not in connected:
