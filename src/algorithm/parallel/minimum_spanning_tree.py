@@ -27,21 +27,27 @@ def prim(graph, start_vertex):
     while heap:
         # 가중치를 기준으로 한 최소 튜플(heapq.heappop(heap))의 정점([1])과 가중치([0]) 추출
         # 힙에서 팝하는 것이 현재 간선들 중에서 최소 가중치 간선을 뽑는 것
-        cur_weight, cur_vertex = heapq.heappop(heap)
+        cur_weight, cur_adj_vertex = heapq.heappop(heap)
 
         # 반대로 생각해보면 양방향 그래프니까 cur_vertex(인접객체)를 중심 정점으로 삼고
         # cur_weight만큼의 가중치를 지닌 간선 정보에 담긴 인접 객체를 튜플에서 찾아서 그 값에 해당하는 mst 딕셔너리에
         # 키를 찾아서 (cur_vertex, cur_weight)를 넣는다
 
+        # 근데 이건 안 되겠네... 다른 간선도 가중치가 같으면 우째...
+        # connected에 포함된 정점인지 확인하면 됨?
+        for connected_vertex, connected_weight in graph[cur_adj_vertex]:
+            if connected_weight == cur_weight and connected_vertex in connected:
+                mst_graph[connected_vertex].append((cur_adj_vertex, cur_weight))
+
         # 현 시점에서의 최소 튜플이 이미 연결되어 있는 간선이라면 볼 필요 없음
-        if cur_vertex not in connected:
-            connected.add(cur_vertex)
+        if cur_adj_vertex not in connected:
+            connected.add(cur_adj_vertex)
             min_sum_weight += cur_weight
 
-            print("연결된 정점 " + str(cur_vertex) + ", 선택 간선 가중치 : " + str(cur_weight))
+            print("연결된 정점 " + str(cur_adj_vertex) + ", 선택 간선 가중치 : " + str(cur_weight))
 
             # 최소치 정점과 연결된 간선 정보들 탐색
-            for adj_vertex, weight in graph[cur_vertex]:
+            for adj_vertex, weight in graph[cur_adj_vertex]:
                 # 신장 트리에 새로 덧이어진 간선(인접 노드)들을 힙에 넣는다
                 # 탐색된 간선들 중 connected에 존재한다는 것은 이미 신장 트리에 포함됐다는 뜻
                 if adj_vertex not in connected:
@@ -50,7 +56,7 @@ def prim(graph, start_vertex):
                     # 최소 가중치 간선 추출 준비 완료
                     heapq.heappush(heap, (weight, adj_vertex))
 
-    return min_sum_weight
+    return min_sum_weight, mst_graph
 
 
 graph = {
@@ -63,5 +69,6 @@ graph = {
     6: [(1, 10), (3, 25), (4, 23)]  # 정점 6에 대한 간선 정보
 }
 
-mst = prim(graph, 0)
+msw, mst = prim(graph, 0)
+print(msw)
 print(mst)
