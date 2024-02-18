@@ -41,6 +41,7 @@ def prim(graph, start_vertex):
             # 최소치 정점과 연결된 간선 정보들 탐색
             for adj_vertex, weight in graph[cur_vertex]:
                 # 신장 트리에 새로 덧이어진 간선(인접 노드)들을 힙에 넣는다
+                # 탐색된 간선들 중 connected에 존재한다는 것은 이미 신장 트리에 포함됐다는 뜻
                 if adj_vertex not in connected:
                     # 이로써 이전 분기에서 최소치에 해당하지 못한 가중치, 간선 튜플과
                     # 현재 분기에서 덧이어진 가중치, 간선 튜플까지 전부 힙에 들어가서
