@@ -13,7 +13,7 @@ def prim(graph, start_vertex):
     # 이중 리스트로 내부 리스트에 (인접 정점, 가중치) 튜플로 간선 정보 표기
     # 그 중, 최소 신장 트리만을 추출하기
     mst_graph = {i: [] for i in range(len(graph))}
-    temp = []
+    # temp = []
 
     connected = set() # 간선 연결 정보
     heap = [] # 최소 힙
@@ -37,16 +37,16 @@ def prim(graph, start_vertex):
 
         # 근데 이건 안 되겠네... 다른 간선도 가중치가 같으면 우째...
         # connected에 포함된 정점인지 확인하면 됨?
-        # for connected_vertex, connected_weight in graph[cur_adj_vertex]:
-        #     if connected_weight == cur_weight and connected_vertex in connected:
-        #         mst_graph[connected_vertex].append((cur_adj_vertex, cur_weight))
 
         # 현 시점에서의 최소 튜플이 이미 연결되어 있는 간선이라면 볼 필요 없음
         if cur_adj_vertex not in connected:
             connected.add(cur_adj_vertex)
             min_sum_weight += cur_weight
 
-            temp.append({cur_connected_vertex : (cur_adj_vertex, cur_weight)})
+            # temp.append({cur_connected_vertex : (cur_adj_vertex, cur_weight)})
+            if cur_connected_vertex != cur_adj_vertex:
+                mst_graph[cur_connected_vertex].append((cur_adj_vertex, cur_weight))
+                mst_graph[cur_adj_vertex].append((cur_connected_vertex, cur_weight))
 
             print("연결된 정점 " + str(cur_adj_vertex) + ", 선택 간선 가중치 : " + str(cur_weight))
 
@@ -60,7 +60,7 @@ def prim(graph, start_vertex):
                     # 최소 가중치 간선 추출 준비 완료
                     heapq.heappush(heap, (weight, adj_vertex, cur_adj_vertex))
 
-    return min_sum_weight, temp
+    return min_sum_weight, mst_graph
 
 
 graph = {
