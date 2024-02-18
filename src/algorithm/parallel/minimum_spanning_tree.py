@@ -16,16 +16,25 @@ def prim(graph, start_vertex):
     # 그 중, 최소 신장 트리만을 추출하기
     mst_graph = {i: [] for i in range(len(graph))}
 
-    visited = set() # 간선 방문 정보
+    connected = set() # 간선 연결 정보
     heap = [] # 최소 힙
 
     # (정점, 가중치) 튜플 식으로 할당
     # 튜플의 첫 번째 요소(여기서는 가중치)를 기준으로 최소 힙이 구성
     heapq.heappush(heap, (0, start_vertex))
 
+    # 최소 가중치
+    min_sum_weight = 0
+
     while heap:
-        # 가중치를 기준으로 한 최소 튜플(heapq.heappop(heap))의 정점([0])과 가중치([1]) 추출
+        # 가중치를 기준으로 한 최소 튜플(heapq.heappop(heap))의 정점([1])과 가중치([0]) 추출
         cur_weight, cur_vertex = heapq.heappop(heap)
+
+        # 현 시점에서의 최소 튜플이 이미 연결되어 있는 간선이라면 볼 필요 없음
+        if cur_vertex not in connected:
+            connected.add(cur_vertex)
+            min_sum_weight += cur_weight
+
 
 
 
