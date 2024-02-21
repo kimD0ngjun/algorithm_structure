@@ -71,24 +71,30 @@ public class Sort {
         }
 
         return array;
-    }
+    } // 얘는 정방향...
 
     //TODO: 삽입 정렬
     public static int[] insertionSort(int[] array) {
-        // 인덱스 0은 어차피 앞에 비교할게 없으니 인덱스 1부터
+        // 어차피 인덱스 0은 비교 불필요, 그러므로 인덱스 1부터
         for (int i = 1; i < array.length; i++) {
+            // 현재 시점의 값 할당 및 역순 시작점 인덱스 세팅
             int target = array[i];
+            int j = i;
 
-            // 현재 인덱스부터 인덱스 0까지 역순으로 탐색한다
-            // 인덱스 i가 인덱스 j보다는 크지만, 인덱스 j-1보다는 작거나 같으면 스왑 후, 인덱스 밀어내기 수행
-            for (int j = i; j > 0; j--) {
-                if ((target > array[j] & target <= array[j - 1]) || target < array[0]) {
-//                    shiftValues(array, j - 1, i);
-                }
+            // 한칸씩 지속적으로 밀어내기 위한 조건
+            // 바로 앞의 값이 array[j-1] <= target 조건을 만족하는 순간
+            // 업데이트된 j 인덱스에 해당하는 값에 target 산입
+            while (j > 0 && target < array[j - 1]) {
+                // 한칸씩 밀어내기
+                array[j] = array[j - 1];
+                j--;
             }
+
+            // 밀어내지고 남은 기존의 조건 만족 위치에 산입
+            array[j] = target;
         }
 
         return array;
-    }
+    } // 얘는 역방향...
 
 }
