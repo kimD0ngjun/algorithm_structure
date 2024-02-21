@@ -17,24 +17,24 @@ public class Sort {
         int temp;
         boolean swapped;
 
-        for (int i = 0; i < array.length - 1; i++) {
+        do {
             swapped = false;
 
-            for (int j = 0; j < array.length - i - 1; j++) {
-                // swap
-                if (array[j] > array[j + 1]) {
-                    temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
+            for (int i = 0; i < array.length - 1; i++) {
+                if (array[i] > array[i + 1]) {
+                    temp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
 
                     swapped = true;
                 }
             }
 
-            // not anymore needed sorting
-            if (!swapped)
+            // 더 이상 스왑이 한 번이라도 일어나지 않을 때까지 반복시킴
+            if (!swapped) {
                 break;
-        }
+            }
+        } while (true);
 
         return array;
     }
