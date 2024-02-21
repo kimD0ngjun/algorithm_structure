@@ -2,7 +2,7 @@ package algorithm.sequential;
 
 import java.util.Arrays;
 
-public class Sort {
+public class Sorts {
     // 구현 대상
     // 버블 정렬, 선택 정렬, 삽입 정렬, 병합 정렬, 퀵 정렬
     // 메소드로 구현하며, 모든 메소드는 정적 메소드로 구현한다.
@@ -97,7 +97,5 @@ public class Sort {
         return array;
     } // 얘는 역방향...
 
-    //TODO: 병합 정렬
-//    public static int[] mergeSort(int[] array, int lowIndex, int midIndex, int highIndex) {
-//    }
+    //TODO: 병합 정렬은 별도의 클래스화
 }
