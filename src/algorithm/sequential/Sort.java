@@ -66,4 +66,30 @@ public class Sort {
         return array;
     }
 
+    //TODO: 삽입 정렬
+    public static int[] insertionSort(int[] array) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i; j >= 0; j--) {
+                if (array[i] > array[j]) {
+                    shiftValues(array, i, j);
+                }
+            }
+        }
+
+        return array;
+    }
+
+    // k ~ n 인덱스에서 n 값을 앞으로 옮기고 그 이전의 값들 인덱스 한 칸 밀어버리기
+    private static void shiftValues(int[] array, int n, int k) {
+        int temp = array[k]; // k 인덱스의 값 저장
+
+        // 배열의 뒷부분을 한 칸씩 뒤로 이동
+        for (int i = k; i > n; i--) {
+            array[i] = array[i - 1];
+        }
+
+        // n 인덱스에 저장할 값 할당
+        array[n] = temp;
+    }
+
 }
