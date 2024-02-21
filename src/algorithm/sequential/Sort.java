@@ -13,6 +13,7 @@ public class Sort {
         System.out.println(Arrays.toString(bubbleSortedArray));
     }
 
+    //TODO: 버블 정렬
     public static int[] bubbleSort(int[] array) {
         int temp;
         boolean swapped;
@@ -37,6 +38,20 @@ public class Sort {
         } while (true);
 
         return array;
+    }
+
+    //TODO: 선택 정렬
+    public static int[] selectionSort(int[] array) {
+        int minimum;
+
+        for (int i = 0; i < array.length; i++) {
+            // 탐색 지점 설정
+            minimum = array[i];
+
+            for (int j = i; j < array.length; j++) {
+
+            }
+        }
     }
 
 }
