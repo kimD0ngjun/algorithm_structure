@@ -1,10 +1,12 @@
 package algorithm.sequential;
 
-public class Test {
+import java.util.Arrays;
+
+public class SortTest {
     public static void main(String[] args) {
         int[] array = {5, 2, 3, 1, 7, 4, 3, 8, 9};
 
         MergeSort mergeSort = new MergeSort(array);
-        mergeSort.sort(0, array.length - 1);
+        System.out.println(Arrays.toString(mergeSort.mergeSort()));
     }
 }
