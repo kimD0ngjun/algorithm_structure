@@ -2,9 +2,11 @@ package algorithm.sequential;
 
 public class MergeSort {
     private int[] array;
+    private int[] temp; // 재활용할 임시 배열
 
     public MergeSort(int[] array) {
         this.array = array;
+        this.temp = new int[array.length]; // 배열 크기에 맞춰 임시 배열 생성
     }
 
     public int[] mergeSort() {
@@ -31,7 +33,6 @@ public class MergeSort {
 
     // 별도의 배열화
     private void merge(int lowIndex, int middleIndex, int highIndex) {
-        int[] temp = new int[highIndex - lowIndex + 1]; // 임시로 담을 배열
         int tempIndex = 0; // 임시 배열 인덱스
         int leftPointer = lowIndex; // 쪼갠 배열 중 한쪽 포인터
         int rightPointer = middleIndex + 1; // 쪼갠 배열 중 다른쪽 포인터
@@ -58,8 +59,9 @@ public class MergeSort {
         }
 
         // 임시 배열의 내용을 원래 배열에 붙여넣기
-        for (int i = 0; i < temp.length; i++) {
+        for (int i = 0; i < tempIndex; i++) {
             this.array[lowIndex + i] = temp[i];
         }
     }
 }
+
