@@ -11,6 +11,9 @@ public class Sort {
 
         int[] bubbleSortedArray = bubbleSort(array);
         System.out.println(Arrays.toString(bubbleSortedArray));
+
+        int[] selectionSortedArray = selectionSort(array);
+        System.out.println(Arrays.toString(selectionSortedArray));
     }
 
     //TODO: 버블 정렬
@@ -42,16 +45,25 @@ public class Sort {
 
     //TODO: 선택 정렬
     public static int[] selectionSort(int[] array) {
-        int minimum;
+        int temp;
 
         for (int i = 0; i < array.length; i++) {
-            // 탐색 지점 설정
-            minimum = array[i];
+            // 탐색 지점 인덱스 설정
+            int minIndex = i;
 
             for (int j = i; j < array.length; j++) {
-
+                if (array[j] < array[minIndex]) {
+                    minIndex = j;
+                }
             }
+
+            // swap
+            temp = array[i];
+            array[i] = array[minIndex];
+            array[minIndex] = temp;
         }
+
+        return array;
     }
 
 }
