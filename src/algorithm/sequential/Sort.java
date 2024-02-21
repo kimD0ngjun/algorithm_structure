@@ -98,9 +98,6 @@ public class Sort {
     } // 얘는 역방향...
 
     //TODO: 병합 정렬
-    public static int[] mergeSort(int[] array) {
-        // 재귀로 쪼개기?
-        // 배열의 길이를 넘지 않는 최대 2의 거듭제곱을 기준으로 나눈다?
-
-    }
+//    public static int[] mergeSort(int[] array, int lowIndex, int midIndex, int highIndex) {
+//    }
 }
