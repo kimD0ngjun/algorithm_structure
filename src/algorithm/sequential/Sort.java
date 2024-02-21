@@ -7,13 +7,20 @@ public class Sort {
     // 버블 정렬, 선택 정렬, 삽입 정렬, 병합 정렬, 퀵 정렬
     // 메소드로 구현하며, 모든 메소드는 정적 메소드로 구현한다.
     public static void main(String[] args) {
-        int[] array = {5, 2, 3, 1, 7, 4, 3, 8, 9};
+        int[] array1 = {5, 2, 3, 1, 7, 4, 3, 8, 9};
 
-        int[] bubbleSortedArray = bubbleSort(array);
+        int[] bubbleSortedArray = bubbleSort(array1);
         System.out.println(Arrays.toString(bubbleSortedArray));
 
-        int[] selectionSortedArray = selectionSort(array);
+        int[] array2 = {5, 2, 3, 1, 7, 4, 3, 8, 9};
+
+        int[] selectionSortedArray = selectionSort(array2);
         System.out.println(Arrays.toString(selectionSortedArray));
+
+        int[] array3 = {5, 2, 3, 1, 7, 4, 3, 8, 9};
+
+        int[] insertionSortedArray = insertionSort(array3);
+        System.out.println(Arrays.toString(insertionSortedArray));
     }
 
     //TODO: 버블 정렬
@@ -68,28 +75,20 @@ public class Sort {
 
     //TODO: 삽입 정렬
     public static int[] insertionSort(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i; j >= 0; j--) {
-                if (array[i] > array[j]) {
-                    shiftValues(array, i, j);
+        // 인덱스 0은 어차피 앞에 비교할게 없으니 인덱스 1부터
+        for (int i = 1; i < array.length; i++) {
+            int target = array[i];
+
+            // 현재 인덱스부터 인덱스 0까지 역순으로 탐색한다
+            // 인덱스 i가 인덱스 j보다는 크지만, 인덱스 j-1보다는 작거나 같으면 스왑 후, 인덱스 밀어내기 수행
+            for (int j = i; j > 0; j--) {
+                if ((target > array[j] & target <= array[j - 1]) || target < array[0]) {
+//                    shiftValues(array, j - 1, i);
                 }
             }
         }
 
         return array;
-    }
-
-    // k ~ n 인덱스에서 n 값을 앞으로 옮기고 그 이전의 값들 인덱스 한 칸 밀어버리기
-    private static void shiftValues(int[] array, int n, int k) {
-        int temp = array[k]; // k 인덱스의 값 저장
-
-        // 배열의 뒷부분을 한 칸씩 뒤로 이동
-        for (int i = k; i > n; i--) {
-            array[i] = array[i - 1];
-        }
-
-        // n 인덱스에 저장할 값 할당
-        array[n] = temp;
     }
 
 }
