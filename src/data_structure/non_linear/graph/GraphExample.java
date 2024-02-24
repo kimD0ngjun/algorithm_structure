@@ -1,6 +1,6 @@
 package data_structure.non_linear.graph;
 
-import algorithm.dfsbfs.PathFinder;
+import algorithm.pathFinder.DfsAndBfs;
 
 public class GraphExample {
     public static void main(String[] args) {
@@ -50,7 +50,7 @@ public class GraphExample {
 
         // 길찾기
 
-        PathFinder pathFinder = new PathFinder(graph);
+        DfsAndBfs pathFinder = new DfsAndBfs(graph);
         pathFinder.findPathByBfs("A", "I");
         pathFinder.findPathByBfs("C", "F");
         pathFinder.findPathByBfs("F", "H");

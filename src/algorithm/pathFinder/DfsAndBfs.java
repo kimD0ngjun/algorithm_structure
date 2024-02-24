@@ -1,4 +1,4 @@
-package algorithm.dfsbfs;
+package algorithm.pathFinder;
 
 import data_structure.non_linear.graph.GraphCustom;
 import data_structure.non_linear.graph.GraphCustom.Vertex;
@@ -6,12 +6,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class PathFinder {
+public class DfsAndBfs {
     // TODO : 필드
     private GraphCustom<?> graph;
 
     // TODO : 생성자
-    public PathFinder(GraphCustom<?> graph) {
+    public DfsAndBfs(GraphCustom<?> graph) {
         this.graph = graph;
     }
 
