@@ -1,4 +1,4 @@
-package algorithm.sequential;
+package algorithm.sort;
 
 public class MergeSort {
     private int[] array;

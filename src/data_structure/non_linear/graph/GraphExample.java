@@ -1,6 +1,6 @@
 package data_structure.non_linear.graph;
 
-import algorithm.sequential.PathFinder;
+import algorithm.dfsbfs.PathFinder;
 
 public class GraphExample {
     public static void main(String[] args) {

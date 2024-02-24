@@ -1,4 +1,4 @@
-package algorithm.sequential;
+package algorithm.dfsbfs;
 
 import data_structure.non_linear.graph.GraphCustom;
 import data_structure.non_linear.graph.GraphCustom.Vertex;
