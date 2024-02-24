@@ -53,3 +53,36 @@ def dijkstra(graph, start):
     return min_distances
 
 print(dijkstra(graph, 'A'))
+
+"""
+추가 기능 구현 : 최단 경로를 출력할 수 있지 않을까?
+
+생각 정리
+1. 큐(힙)에 들어가는 건 현재로써는 업데이트된 최단 경로와 목적지인 cur_dir_vertex인데, 이 cur_dir_vertex를 바꿔야 할듯
+2, 어떻게 바꿀까? 이제까지 거쳤던 곳을 리스트로써 업뎃하는 게 옳을까?
+"""
+
+def dijkstraWithPrintPath(graph, start):
+    inf = float("inf")
+    min_distances = {vertex: inf for vertex in graph}
+    # 거리 출력용 추가 딕셔널
+    min_path = {vertex: [] for vertex in graph}
+    min_distances[start] = 0
+
+    queue = []
+    heapq.heappush(queue, (min_distances[start], start))
+
+    while queue:
+        cur_distance, cur_dir_vertex = heapq.heappop(queue)
+
+        if min_distances[cur_dir_vertex] < cur_distance:
+            continue
+
+        for adj_vertex, weight in graph[cur_dir_vertex].items():
+            updated_distance = cur_distance + weight
+
+            if updated_distance < min_distances[adj_vertex]:
+                min_distances[adj_vertex] = updated_distance
+                heapq.heappush(queue, (updated_distance, adj_vertex))
+
+    return min_distances
