@@ -70,19 +70,26 @@ def dijkstraWithPrintPath(graph, start):
     min_distances[start] = 0
 
     queue = []
-    heapq.heappush(queue, (min_distances[start], start))
+    # 현재 최단거리, 시작 정점에서 향하는 목적지 정점, 이제까지의 경로
+    heapq.heappush(queue, (min_distances[start], start, [start]))
 
     while queue:
-        cur_distance, cur_dir_vertex = heapq.heappop(queue)
+        cur_distance, cur_dir_vertex, cur_path = heapq.heappop(queue)
 
         if min_distances[cur_dir_vertex] < cur_distance:
             continue
 
         for adj_vertex, weight in graph[cur_dir_vertex].items():
             updated_distance = cur_distance + weight
+            # 경로 업데이트를 대비한 임시용 경로 배열 생성
+            temp = cur_path[:]
+            temp.append(adj_vertex)
 
             if updated_distance < min_distances[adj_vertex]:
                 min_distances[adj_vertex] = updated_distance
-                heapq.heappush(queue, (updated_distance, adj_vertex))
+                min_path[adj_vertex] = temp
+                heapq.heappush(queue, (updated_distance, adj_vertex, temp))
 
-    return min_distances
+    return min_distances, min_path
+
+print(dijkstraWithPrintPath(graph, 'A'))
