@@ -12,3 +12,11 @@ graph = {
     'E': {'F': 1},
     'F': {'A': 5}
 }
+
+def dijkstra(graph, start):
+    # 초기 각 최단거리 초기화용 파이썬 내 최대값
+    inf = float("inf") # 가중치 무한대
+    min_distance = {vertex: inf for vertex in graph} # 각 정점 간 최단거리 초기화
+    min_distance[start] = 0 # 시작 정점간 거리는 0
+
+    # 최소 힙(우선순위 큐)을 기반으로 한 다익스트라 구현
