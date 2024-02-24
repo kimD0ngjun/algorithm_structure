@@ -31,6 +31,13 @@ def dijkstra(graph, start):
         # 시작 정점으로부터 현재 가장 최단거리인 특정 정점까지의 거리, 특정 정점을 뽑는다
         cur_distance, cur_dir_vertex = heapq.heappop(queue)
 
+        """다른 블로그에서 참조 : 조금의 효율성이라도 더 챙겨보기"""
+        # 추출한 인접 간선의 가중치가 현재까지의 업뎃 과정을 거쳐 갱신된 가중치보다 크다?
+        # 더해도 어차피 min_distance[adj_vertex]보다 작을 것이기 때문에 굳이 볼 필요가 없음
+        if min_distances[cur_dir_vertex] < cur_distance:
+            continue
+
+        # 경유 우회해서 도착한 특정 정점까지의 거리와 이전까지 업뎃된 정점까지의 거리를 비교하기 위함
         # .items() 메서드를 호출하면 중첩 그래프의 내부 딕셔너리의 키(간선으로 이어진 정점)-값(가중치) 쌍을 튜플 형태로 반환
         for adj_vertex, weight in graph[cur_dir_vertex].items():
             updated_distance = cur_distance + weight
