@@ -52,7 +52,7 @@ def dijkstra(graph, start):
     # 최종 업데이트 된 각 정점 목적 최단거리 반환
     return min_distances
 
-print(dijkstra(graph, 'A'))
+# print(dijkstra(graph, 'A'))
 
 """
 추가 기능 구현 : 최단 경로를 출력할 수 있지 않을까?
@@ -62,11 +62,21 @@ print(dijkstra(graph, 'A'))
 2, 어떻게 바꿀까? 이제까지 거쳤던 곳을 리스트로써 업뎃하는 게 옳을까?
 """
 
+another_graph = {
+    'A': {'B': 8, 'C': 1, 'D': 2},
+    'B': {},
+    'C': {'B': 5, 'D': 2, 'G': 1},
+    'D': {'E': 3, 'F': 5},
+    'E': {'F': 1},
+    'F': {'A': 5},
+    'G': {'B': 1, 'E': 1}
+}
+
 def dijkstraWithPrintPath(graph, start):
     inf = float("inf")
     min_distances = {vertex: inf for vertex in graph}
     # 거리 출력용 추가 딕셔널
-    min_path = {vertex: [] for vertex in graph}
+    min_paths = {vertex: [] for vertex in graph}
     min_distances[start] = 0
 
     queue = []
@@ -87,9 +97,17 @@ def dijkstraWithPrintPath(graph, start):
 
             if updated_distance < min_distances[adj_vertex]:
                 min_distances[adj_vertex] = updated_distance
-                min_path[adj_vertex] = temp
+                min_paths[adj_vertex] = temp
                 heapq.heappush(queue, (updated_distance, adj_vertex, temp))
 
-    return min_distances, min_path
+    return min_distances, min_paths
 
-print(dijkstraWithPrintPath(graph, 'A'))
+# test
+min_distances, min_paths = dijkstraWithPrintPath(another_graph, 'A')
+
+print(min_distances)
+# print(min_paths)
+
+for vertex, path in min_paths.items():
+    min_path = ' -> '.join(path)
+    print(min_path)
