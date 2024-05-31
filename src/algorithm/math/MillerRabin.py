@@ -1,81 +1,130 @@
+"""
+해당 알고리즘은 확률성 판별 알고리즘임
+즉, 소수다! 가 아니라 소수일 가능성이 크다! 이다.
+
+long long의 자료형 범위정도의 크기는 수학에서는 작은 수라고 표현할 정도로 작은 범위이기 때문에,
+long long 범위에서는 정확히 소수라고 판별할 수 있다.
+
+
+<<< 전제 지식 >>>
+
+1. a ≡ b (mod N)
+* a를 N으로 나눈 나머지와 b를 N으로 나눈 나머지가 같다라는 표시
+
+2. 보조정리 (1) 페르마의 소정리
+-> 소수 p와 정수 a에 대하여 다음을 만족한다
+* a^p ≡ a (mod p)
+* a^(p-1) ≡ 1 (mod p)  if  a % p != 0  -->  a를 p-1번 곱한 수를 소수 p로 나눈 나머지 == 1
+
+3. 보조정리 (2)
+* 소수 p에 대하여 x^2 ≡ 1 (mod p) 이면, x ≡ -1 (mod p) or x ≡ 1 (mod p)
+--> x^2 - 1이 p의 배수이므로, x-1 또는 x+1이 p의 배수가 된다.
+
+
+<<< 밀러-라빈 소수 판별법 >>>
+
+N이 2가 아닌 소수일 경우 N-1은 짝수가 됨
+N-1을 나눠지지 않을 때까지(즉, 홀수 d가 몫으로 나올 때까지) 2로 계속 나눌 수 있게 됨
+
+N-1 = 2^r * d
+
+아까 페르마의 소정리( a^(p-1) ≡ 1 (mod p) )에 의해 아래를 만족함
+
+a^(N-1) ≡ 1 (mod N)
+a^(2^r * d) ≡ 1 (mod N)
+
+지수 정리에 의해
+
+{a^(2^(r-1) * d)}^2 ≡ 1 (mod N)
+
+여기서 보조정리 (2)에 의해서 x = a^(2^(r-1) * d) 로 생각하면
+
+a^(2^(r-1) * d) ≡ 1 (mod N) or a^(2^(r-1) * d) ≡ -1 (mod N)
+
+1과 합동인 케이스는 다시 보조정리 (2)를 활용할 수 있음
+
+
+<<< 결론 >>>
+
+N이 소수라면 N보다 작은 양의 정수 a에 대해서 다음 줄 중 하나를 만족
+
+a^d ≡ 1 (mod N)
+a^(2^(r-1) * d) ≡ -1 (mod N)
+
+다음과 같은 a들에 대한 위 테스트가 통과하면 소수라고 결정론적으로 말할 수 있다는 것이 밝혀짐
+
+int 범위 : a = 2, 7, 61
+long long 범위 : a = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31 (2~31까지의 소수)
+"""
+
 class MillerRabin:
-    def __init__(self):
-        pass
 
-    def power(self, x, y, p):
-        """
-        모듈러 연산에서 x^y % p를 계산하는 메서드
+    """
+    거듭제곱을 그냥 계산하면 시간 복잡도가 O(N)이므로
+    고속 거듭제곱 알고리즘 차용
+    """
+    # a는 밑 b는 지수, N은 모듈러 연산 대상이자 소수 판별 대상
+    def power(self, a, b, N):
 
-        :param x: 밑
-        :param y: 지수
-        :param p: 모듈러
-        :return: x^y % p의 결과
-        """
-        res = 1  # 결과값 초기화
-        x = x % p  # x를 p로 나눈 나머지로 초기화
+        result = 1
 
-        while y > 0:
-            if y % 2 == 1:  # y가 홀수이면
-                res = (res * x) % p  # 현재 x를 결과에 곱하고 모듈러 연산
+        while b > 0:
+            # b가 홀수일 경우
+            if b % 2 != 0:
+                # result에 밑 한 번 더 곱하고
+                # 오버플로우 발생 방지용 모듈러 연산(% m)
+                result = (result * a) % N
 
-            y = y // 2  # y를 2로 나누기
-            x = (x * x) % p  # x를 제곱하고 모듈러 연산
+            # 제곱한 만큼 b는 2로 나눠주고
+            # 홀수, 짝수 상관없이 a는 제곱
+            # 오버플로우 발생 방지용 모듈러 연산(% m)
+            b = b // 2
+            a = (a * a) % N
 
-        return res
+        return result
 
-    def test(self, n, a):
-        """
-        밀러-라빈 소수 판정 메서드
+    # N은 소수 판별 대상, t는 소수성 테스트용 기반 숫자
+    def test(self, N, t):
 
-        :param n: 소수 여부를 판정할 수
-        :param a: 기반이 되는 값
-        :return: n이 소수일 가능성이 있으면 True, 확실히 합성수이면 False
-        """
-        d = n - 1  # n - 1을 d로 초기화
-        while d % 2 == 0:  # d가 짝수이면
-            d //= 2  # d를 2로 나누기
+        # 거듭제곱 지수 초기화
+        r = 0
+        # 짝수 초기화
+        n = N - 1
 
-        x = self.power(a, d, n)  # a^d % n을 계산
+        # 거듭제곱 지수 카운팅
+        while n % 2 == 0:
+            r += 1
+            n = n // 2
 
-        if x == 1 or x == n - 1:  # x가 1 또는 n-1이면
-            return True  # 소수일 가능성이 있음
+        # t^(N-1) 즉, t^n 계산
+        x = self.power(t, n, N)
 
-        while d != n - 1:  # d가 n-1이 아닌 동안
-            x = self.power(x, 2, n)  # x를 제곱하고 모듈러 연산
-            d *= 2  # d를 2배로 증가
+        # x == 1 : t^n ≡ 1 (mod N) 판별
+        # x == N - 1 : t^n ≡ -1 (mod N) 판별
+        if x == 1 or x == N - 1:
+            return True
 
-            if x == 1:  # x가 1이면
-                return False  # 확실히 합성수
-            if x == n - 1:  # x가 n-1이면
-                return True  # 소수일 가능성이 있음
+        # t^(2^(r-1) * n) ≡ -1 (mod N) 판별
+        for i in range(0, r-1):
+            # x = x^2 mod N 갱신 계산
+            x = self.power(x, 2, N)
 
-        return False  # 합성수
+            # 여기서 판별
+            if x == N - 1:
+                return True
 
-    def calculate(self, n):
-        """
-        소수 판정 메서드
-
-        :param n: 소수 여부를 판정할 수
-        :return: n이 소수이면 True, 아니면 False
-        """
-        if n in [2, 3]:  # n이 2 또는 3이면
-            return True  # 소수
-
-        if n == 1 or n % 2 == 0:  # n이 1이거나 짝수이면
-            return False  # 소수가 아님
-
-        for a in [2, 3]:  # 2와 3을 사용하여 밀러-라빈 테스트
-            """
-            2^64 미만의 수 n에 대하여 임의의 수 a가 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37 계산
-            """
-            if not self.test(n, a):  # 테스트를 통과하지 못하면
-                return False  # 소수가 아님
-
-        return True  # 소수
+        # 저 두 조건 다 만족 못하면 그냥 합성수
+        return False
 
 
 mr = MillerRabin()
 
-print(mr.calculate(17))  # True
-print(mr.calculate(18))  # False
-print(mr.calculate(29))  # True
+print(mr.test(17, 2))  # True
+print(mr.test(18, 7))  # False
+print(mr.test(29, 61))  # True
+
+"""
+확률성 소수 판별법이기 때문에
+기반이 되는 테스트 숫자들을 잘 선별해야 함
+백준의 https://www.acmicpc.net/problem/5615 문제 참조
+"""
