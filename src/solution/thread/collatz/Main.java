@@ -16,8 +16,8 @@ public class Main {
 
         long end = System.nanoTime();
 
-        System.out.println("단일 스레드 정답: " + answer);
-        System.out.println("단일 스레드 처리 시간: " + (end - start));
+        System.out.println("* 단일 스레드 정답: " + answer);
+        System.out.println("* 단일 스레드 처리 시간: " + (end - start));
 
         long threadStart = System.nanoTime();
 
@@ -26,8 +26,11 @@ public class Main {
 
         long threadEnd = System.nanoTime();
 
-        System.out.println("멀티 스레드 정답: " + answerWithMultiThread);
-        System.out.println("멀티 스레드 처리 시간: " + (threadEnd - threadStart));
+        System.out.println("* 멀티 스레드 정답: " + answerWithMultiThread);
+        System.out.println("* 멀티 스레드 처리 시간: " + (threadEnd - threadStart));
 
+        System.out.println("계산 종료");
+        scanner.close();
+        System.exit(0);
     }
 }

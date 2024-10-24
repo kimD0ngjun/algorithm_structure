@@ -45,6 +45,8 @@ public class CollatzWithThread {
             } catch (ExecutionException | InterruptedException e) {
                 System.err.println(e.getMessage());
                 return -1;
+            } finally {
+                executorService.shutdown();
             }
         }
     }
