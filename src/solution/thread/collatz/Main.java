@@ -1,8 +1,13 @@
 package solution.thread.collatz;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        int parameter = 20_000;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("계산할 파라미터를 입력하세요");
+        int parameter = scanner.nextInt();
 
         long start = System.nanoTime();
 
