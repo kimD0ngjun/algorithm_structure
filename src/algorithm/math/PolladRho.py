@@ -52,25 +52,27 @@ def pollard_rho(n):
     if n % 2 == 0:
         return 2 # 짝수는 당연히 2를 인수로 가지니
 
-    xi = 2 # 수열의 초기화
-    xj = 2 # 수열의 초기화
-    d = 1 # 최대공약수 정답 변수
-    f= lambda x: (x * x + 1) % n # 유사난수발생기
+    # c의 변동을 통한 확률적 실패 대응
+    for c in range(1, 10):
+        xi = 2 # 수열의 초기화
+        xj = 2 # 수열의 초기화
+        d = 1 # 최대공약수 정답 변수
+        f= lambda x: (x * x + c) % n # 유사난수발생기
+    
+        # 플로이드의 토끼와 거북이 알고리즘
+        # x는 1칸, y는 2칸씩 뛰면서 수열 요소 탐색
+        while d == 1:
+            xi = f(xi)
+            xj = f(f(xj))
+    
+            # 그에 따른 최대공약수 연산
+            # 여기서 나온 값이 p 또는 q일지? 혹은 f의 수정이 필요할지?
+            d = math.gcd(abs(xi - xj), n) # 자바는 BigInteger.valueOf(n).gcd(xi - xj)
+    
+        if d != n and d != 1:
+            return d
 
-    # 플로이드의 토끼와 거북이 알고리즘
-    # x는 1칸, y는 2칸씩 뛰면서 수열 요소 탐색
-    while d == 1:
-        xi = f(xi)
-        xj = f(f(xj))
-
-        # 그에 따른 최대공약수 연산
-        # 여기서 나온 값이 p 또는 q일지? 혹은 f의 수정이 필요할지?
-        d = math.gcd(abs(xi - xj), n) # 자바는 BigInteger.valueOf(n).gcd(xi - xj)
-
-    if d == n:
-        return -1 # f의 수정이 필요해진다
-    else:
-        return d
+    return None
 
 
 if __name__ == '__main__':
