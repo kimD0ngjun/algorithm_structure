@@ -1,65 +1,58 @@
-class MergeSort:
-    def __init__(self, array):
-        self.array = array
-        self.temp = [0] * len(array)  # 임시 배열을 인스턴스 변수로 초기화
+class merge_sort:
+    def __init__(self, arr):
+        self.arr = arr
+        self.temp = [None] * len(arr) # buffer
 
-    def merge_sort(self):
-        self.sort(0, len(self.array) - 1)
-        return self.array
+    def sort(self):
+        self.divide(0, len(self.arr) - 1)
+        return self.arr
 
-    def sort(self, low_index, high_index):
-        # 탈출 조건
-        if low_index == high_index:
+    def divide(self, low_idx, high_idx):
+        # extraordinary case
+        if low_idx >= high_idx:
             return
 
-        # 가운데 인덱스 추출
-        middle_index = (high_index + low_index) // 2
+        # divide
+        mid_idx = (low_idx + high_idx) // 2
 
-        # 재귀 호출
-        self.sort(low_index, middle_index)
-        self.sort(middle_index + 1, high_index)
+        # conquer
+        self.divide(low_idx, mid_idx)
+        self.divide(mid_idx + 1, high_idx)
 
-        # 병합(재귀 회수) 단계에서 정리될 부분
-        self.merge(low_index, middle_index, high_index)
+        self.merge(low_idx, mid_idx, high_idx)
 
-    # 별도의 배열화
-    def merge(self, low_index, middle_index, high_index):
-        temp_index = 0  # 임시 배열 인덱스
-        left_pointer = low_index  # 쪼갠 배열 중 한쪽 포인터
-        right_pointer = middle_index + 1  # 쪼갠 배열 중 다른쪽 포인터
+    def merge(self, low, mid, high):
+        temp_idx = 0
+        left_pointer = low # left arr pointer
+        right_pointer = mid + 1 # right arr pointer
 
-        # 각 포인터가 담당 배열의 마지막 인덱스까지 닿을 때까지 수행
-        while left_pointer <= middle_index and right_pointer <= high_index:
-            if self.array[left_pointer] <= self.array[right_pointer]:
-                # 배열에 할당시킴과 동시에 변수 증가 업데이트(외워두기)
-                self.temp[temp_index] = self.array[left_pointer]
-                temp_index += 1
+        # sorting two divided arr
+        while left_pointer <= mid and right_pointer <= high:
+            if self.arr[left_pointer] <= self.arr[right_pointer]:
+                self.temp[temp_idx] = self.arr[left_pointer]
                 left_pointer += 1
+                temp_idx += 1
             else:
-                self.temp[temp_index] = self.array[right_pointer]
-                temp_index += 1
+                self.temp[temp_idx] = self.arr[right_pointer]
                 right_pointer += 1
+                temp_idx += 1
 
-        # 한쪽 포인터가 먼저 다다랐을 때 수행
-        while left_pointer <= middle_index:
-            # 잔여 배열들 전부 붙여넣기
-            self.temp[temp_index] = self.array[left_pointer]
-            temp_index += 1
+        # if one pointer arrived
+        while left_pointer <= mid:
+            self.temp[temp_idx] = self.arr[left_pointer]
             left_pointer += 1
+            temp_idx += 1
 
-        # 얘도 마찬가지
-        while right_pointer <= high_index:
-            self.temp[temp_index] = self.array[right_pointer]
-            temp_index += 1
+        while right_pointer <= high:
+            self.temp[temp_idx] = self.arr[right_pointer]
             right_pointer += 1
+            temp_idx += 1
 
-        # 임시 배열의 내용을 원래 배열에 붙여넣기
-        for i in range(temp_index):
-            self.array[low_index + i] = self.temp[i]
+        # to arr from buffer
+        # because of sorting partial arr for upper arr
+        for i in range(temp_idx):
+            self.arr[low + i] = self.temp[i]
 
-# 테스트
-if __name__ == "__main__":
-    array = [5, 2, 3, 1, 7, 4, 3, 8, 9]
-    merge_sorter = MergeSort(array)
-    sorted_array = merge_sorter.merge_sort()
-    print(sorted_array)
+arr = [38, 27, 43, 3, 9, 82, 10]
+merge_sort = merge_sort(arr)
+print(merge_sort.sort())
